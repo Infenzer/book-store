@@ -1,0 +1,63 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .btn-wrapper {
+    margin-right: 1em;
+    display: flex;
+    align-items: center;
+
+    .basket {
+      background-color: #F4F25A;
+      padding: 1em;
+      margin-right: .5em;
+      border: 1px solid black;
+      color: black;
+      transition: 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
+        margin: 0;
+        margin-right: .5em;
+      }
+
+      img {
+        width: 1.2em;
+      }
+    }
+
+    .basket:hover {
+      padding: 1.2em 2em;
+    }
+
+    .login {
+      padding: 1em;
+      border: 1px solid black;
+      transition: .3s ease-in;
+    }
+
+    .login:hover {
+      background-color: black;
+      color: white;
+      padding: 1.2em 2em;
+    }
+  }
+
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      width: 5em;
+      height: 5em;
+      margin: 0 .5em;
+    }
+
+    .title {
+      font-size: 2em;
+    }
+  }
+}
