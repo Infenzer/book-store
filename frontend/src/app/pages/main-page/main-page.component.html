@@ -1,5 +1,18 @@
 <div class="main-page" *ngIf="!(loading$ | async)">
-  mainPage
+  <div class="book-list">
+    <a href="#" class="book" *ngFor="let book of books$ | async">
+
+      <p class="title">{{book.volumeInfo.title}}</p>
+      <img class="book-image" src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="img">
+      <div *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="sale-info">
+        <a class="basket-link" href="#">В корзину</a>
+        <div class="price">{{book.saleInfo.retailPrice.amount + " " + book.saleInfo.retailPrice.currencyCode}}</div>
+      </div>
+      <div class="sale-info" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>
+
+    </a>
+  </div>
+  <a class="load-book" href="#">Загурзить ещё</a>
 </div>
 <div class="loader-wrapper" *ngIf="loading$ | async">
   <app-loader></app-loader>

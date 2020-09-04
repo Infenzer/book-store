@@ -11,6 +11,6 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
   getBooks(): Observable<IBookResponce> {
-    return this.http.get<IBookResponce>('https://www.googleapis.com/books/v1/volumes?q=quilting')
+    return this.http.get<IBookResponce>('https://www.googleapis.com/books/v1/volumes?q=Метро&maxResults=16')
   }
 }
