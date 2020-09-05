@@ -33,7 +33,7 @@ export interface IImageLinks {
 
 export interface IVolumeInfo {
   allowAnonLogging: boolean
-  authors: string[]
+  authors?: string[]
   canonicalVolumeLink: string
   categories: string[]
   contentVersion: string

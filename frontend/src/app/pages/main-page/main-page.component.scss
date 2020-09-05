@@ -34,6 +34,19 @@
       height: 100%;
       width: 100%;
       transition: .6s ease-in;
+
+      .author-wrapper {
+        .author-title {
+          margin-bottom: .2em;
+          text-align: start;
+          font-weight: bold;
+        }
+
+        .author {
+          display: block;
+          text-align: start;
+        }
+      }
       
       .sale-info {
         display: flex;
@@ -54,6 +67,7 @@
       }
 
       .title {
+        padding: 0 .5em;
         font-size: 1.2em;
         font-weight: bold;
       }

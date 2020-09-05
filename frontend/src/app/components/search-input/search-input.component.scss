@@ -1,0 +1,27 @@
+.search-input {
+  border: 1px solid black;
+  display: flex;
+
+  input[type="text"] {
+    border: none;
+    width: 300px;
+  }
+
+  input[type="text"]:focus {
+    border: none;
+    outline: none;
+  }
+
+  .find-btn {
+    display: flex;
+    padding: .5em;
+    align-items: center;
+    transition: 0.3s ease-in;
+    margin: -1px;
+  }
+
+  .find-btn:hover {
+    background-color: black;
+    color: white;
+  }
+}

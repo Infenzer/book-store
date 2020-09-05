@@ -12,14 +12,16 @@ import { HeaderComponent } from '../app/components/header/header.component'
 import { LoaderComponent } from './components/loader/loader.component';
 import { reducers } from '../store'
 import { environment } from 'src/environments/environment';
-import { BookEffects } from '../store/effects/book.effects'
+import { BookEffects } from '../store/effects/book.effects';
+import { SearchInputComponent } from './components/search-input/search-input.component'
  
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     HeaderComponent,
-    LoaderComponent
+    LoaderComponent,
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,
