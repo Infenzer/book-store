@@ -24,66 +24,71 @@
     justify-items: center;
     align-items: center;
     width: 100%;
+  }
+}
 
-    .book {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      height: 100%;
-      width: 100%;
-      transition: .6s ease-in;
+.book {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  transition: .6s ease-in;
 
-      .author-wrapper {
-        .author-title {
-          margin-bottom: .2em;
-          text-align: start;
-          font-weight: bold;
-        }
-
-        .author {
-          display: block;
-          text-align: start;
-        }
-      }
-      
-      .sale-info {
-        display: flex;
-        align-items: center;
-        margin: 1em 0;
-
-        .basket-link {
-          margin-right: .5em;
-          border: 1px solid black;
-          background-color: #F4F25A;
-          padding: .5em;
-          transition: .4s;
-        }
-
-        .basket-link:hover {
-          padding: .8em;
-        }
-      }
-
-      .title {
-        padding: 0 .5em;
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-
-      .book-image {
-        width: 120px;
-      }
+  .author-wrapper {
+    .author-title {
+      margin-bottom: .2em;
+      text-align: start;
+      font-weight: bold;
     }
 
-    .book:hover {
-      border-color: black;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      transition: .3s;
-      border-radius: .5em;
+    .author {
+      display: block;
+      text-align: start;
+      font-style: italic;
     }
   }
+  
+  .sale-info {
+    display: flex;
+    align-items: center;
+    margin: 1em 0;
+
+    .basket-link {
+      margin-right: .5em;
+      border: 1px solid black;
+      background-color: #F4F25A;
+      padding: .5em;
+      transition: .4s;
+    }
+
+    .basket-link:hover {
+      padding: .8em;
+    }
+  }
+
+  .not-for-sale {
+    font-weight: bold;
+  }
+
+  .title {
+    padding: 0 .5em;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .book-image {
+    width: 120px;
+  }
+}
+
+.book:hover {
+  border-color: black;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: .3s;
+  border-radius: .5em;
 }
 
 .click-loader-wrapper {

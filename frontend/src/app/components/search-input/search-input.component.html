@@ -1,4 +1,19 @@
-<div class="search-input">
-  <input type="text">
-  <a class="find-btn" href="#">Найти</a>
+<div class="search-wrapper">
+  <div class="search-input">
+    <input #searchInput type="text">
+    <a class="find-btn" href="#">Найти</a>
+  </div>
+
+  <div (click)="onBookClick()" class="search-result" *ngIf="(searchResult$ | async).length">
+    <ul>
+      <li class="book" *ngFor="let book of searchResult$ | async">
+        <img src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
+        <div class="title">{{book.volumeInfo.title}}</div>
+        <div *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="sale-info">
+          <div class="price">{{book.saleInfo.retailPrice.amount + " " + book.saleInfo.retailPrice.currencyCode}}</div>
+        </div>
+        <div class="plug" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'"></div>
+      </li>
+    </ul>
+  </div>
 </div>

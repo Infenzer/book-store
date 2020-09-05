@@ -1,3 +1,42 @@
+.search-wrapper {
+  position: relative;
+}
+
+.search-result {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: white;
+  border: 1px solid black;
+  border-top: none;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+
+  .book {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: .4em;
+    transition: .3s ease-in;
+
+    .plug {
+      width: 20%;
+      height: 100%;
+    }
+
+    img {
+      height: 4em;
+      margin-right: .4em;
+    }
+  }
+
+  .book:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  }
+}
+
 .search-input {
   border: 1px solid black;
   display: flex;

@@ -12,7 +12,7 @@
         <a class="basket-link" href="#">В корзину</a>
         <div class="price">{{book.saleInfo.retailPrice.amount + " " + book.saleInfo.retailPrice.currencyCode}}</div>
       </div>
-      <div class="sale-info" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>
+      <div class="sale-info not-for-sale" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>
 
     </a>
   </div>

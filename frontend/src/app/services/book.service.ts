@@ -29,4 +29,9 @@ export class BookService {
     
     return this.http.get<IBookResponce>('https://www.googleapis.com/books/v1/volumes?q=Метро&' + results + index)
   }
+
+  getSearchBooks(search: string, maxResults = 10) {
+    const results = `maxResults=${maxResults}&`
+    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${search}&` + results)
+  }
 }
