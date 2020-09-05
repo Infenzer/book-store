@@ -4,6 +4,7 @@ import { BookService } from '../../app/services/book.service'
 import { EBookActions } from '../actions/book.actions'
 import { mergeMap, map, catchError, tap, delay } from 'rxjs/operators'
 import { of } from 'rxjs'
+import { parseApi } from '../../utils/api.parsing'
 
 @Injectable()
 export class BookEffects {
@@ -13,12 +14,26 @@ export class BookEffects {
       mergeMap(() => this.bookService.getBooks()
         .pipe(
           delay(1000),
-          tap(bookList => console.log(bookList)),
-          map(bookRes => ({type: EBookActions.loadBookListSuccess, bookList: bookRes.items})),
-          catchError(() => of({type: EBookActions.loadBookListError}))
+          tap(bookRes => console.log(bookRes)),
+          map(bookRes => ( {type: EBookActions.loadBookListSuccess, bookList: parseApi(bookRes.items)} )),
+          // catchError(() => of({type: EBookActions.loadBookListError}))
         )
       )
     )
+  )
+
+  nextBooks$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EBookActions.nextBookList),
+      mergeMap(() => this.bookService.getNextBooks()
+        .pipe(
+          delay(1000),
+          tap(bookRes => console.log(bookRes)),
+          map(bookRes => ( {type: EBookActions.nextBookListSuccess, nextBookList: parseApi(bookRes.items)} )),
+          // catchError(() => of({type: EBookActions.nextBookListError}))
+        )
+      )
+    )  
   )
 
   constructor(

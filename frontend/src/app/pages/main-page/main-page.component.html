@@ -1,9 +1,9 @@
-<div class="main-page" *ngIf="!(loading$ | async)">
+<div class="main-page" *ngIf="!(loading$ | async) || (books$ | async).length">
   <div class="book-list">
     <a href="#" class="book" *ngFor="let book of books$ | async">
 
       <p class="title">{{book.volumeInfo.title}}</p>
-      <img class="book-image" src="{{book.volumeInfo.imageLinks.smallThumbnail}}" alt="img">
+      <img class="book-image" src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
       <div *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="sale-info">
         <a class="basket-link" href="#">В корзину</a>
         <div class="price">{{book.saleInfo.retailPrice.amount + " " + book.saleInfo.retailPrice.currencyCode}}</div>
@@ -12,8 +12,16 @@
 
     </a>
   </div>
-  <a class="load-book" href="#">Загурзить ещё</a>
+
+  <a *ngIf="!(loading$ | async)" 
+     (click)="loadNextBookList($event)" 
+     class="load-book" href="#"
+  >Загурзить ещё</a>
+  <div class="click-loader-wrapper" *ngIf="(loading$ | async) && (books$ | async).length">
+    <app-loader></app-loader>
+  </div>
+
 </div>
-<div class="loader-wrapper" *ngIf="loading$ | async">
+<div class="loader-wrapper" *ngIf="(loading$ | async) && !(books$ | async).length">
   <app-loader></app-loader>
 </div>

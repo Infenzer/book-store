@@ -27,8 +27,8 @@ export interface ISaleInfo {
 }
 
 export interface IImageLinks {
-  smallThumbnail: string
-  thumbnail: string
+  smallThumbnail?: string
+  thumbnail?: string
 }
 
 export interface IVolumeInfo {
@@ -38,7 +38,7 @@ export interface IVolumeInfo {
   categories: string[]
   contentVersion: string
   description: string
-  imageLinks: IImageLinks
+  imageLinks?: IImageLinks
   industryIdentifiers: {identifier: string, type: string}[]
   infoLink: string
   language: string

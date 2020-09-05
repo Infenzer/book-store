@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IBook } from 'src/models/book.models';
 import { Store } from '@ngrx/store';
 import { State, selectBookList } from 'src/store';
-import { loadBookList } from 'src/store/actions/book.actions';
+import { loadBookList, nextBookList } from 'src/store/actions/book.actions';
 
 @Component({
   selector: 'app-main-page',
@@ -23,6 +23,12 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadBookList())
+  }
+
+  loadNextBookList(event: MouseEvent) {
+    event.preventDefault()
+
+    this.store.dispatch(nextBookList())
   }
 
 }

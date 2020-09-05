@@ -72,6 +72,13 @@
   }
 }
 
+.click-loader-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader-wrapper {
   width: 100vw;
   height: 80vh;
@@ -85,6 +92,7 @@
   .main-page {
     .book-list {
       grid-template-columns: repeat(3, 1fr);
+      gap: 2em 4em;
     }
   }
 }
