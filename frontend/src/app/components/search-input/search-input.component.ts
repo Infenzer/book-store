@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Observable, fromEvent } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { map, debounceTime, distinctUntilChanged, switchMap, filter, tap, delay } from 'rxjs/operators';
 import { IBook } from 'src/models/book.models';
 import { BookService } from 'src/app/services/book.service';
 import { parseApi } from 'src/utils/api.parsing';
@@ -10,8 +10,10 @@ import { parseApi } from 'src/utils/api.parsing';
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss']
 })
-export class SearchInputComponent implements OnInit, AfterViewInit {
-  searchResult$: Observable<IBook[]> = new Observable(observer => observer.next([]))
+export class SearchInputComponent implements AfterViewInit {
+  searchResult: IBook[] = []
+  loading = false
+  active = false
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>
 
@@ -20,26 +22,30 @@ export class SearchInputComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     fromEvent(this.searchInput.nativeElement, 'input')
       .pipe(
-        debounceTime(500),
         map(event => (event.target as HTMLInputElement).value),
+        filter(searchValue => !!searchValue),
+        tap(() => {
+          this.loading = true
+          this.searchResult = []
+          this.active = true
+        }),
+        debounceTime(500),
         distinctUntilChanged(),
+        switchMap(searchValue => this.bookService.getSearchBooks(searchValue, 6)),
+        map(bookRes => parseApi(bookRes.items)),
+        tap(() => this.loading = false)
       )
-      .subscribe(value => {
-        if (value) {
-          this.searchResult$ = this.bookService.getSearchBooks(value, 6)
-            .pipe(
-              map(bookRes => bookRes.items),
-              map(bookList => parseApi(bookList))
-            )
-        }
-      })
+      .subscribe(bookList => this.searchResult = bookList)
   }
 
   onBookClick(event: any) {
 
   }
 
-  ngOnInit(): void {
+  onBlur(event: MouseEvent) {
+    (event.target as HTMLInputElement).value = ''
+    this.searchResult = []
+    this.active = false
   }
 
 }
