@@ -3,8 +3,10 @@ import { fromEvent } from 'rxjs';
 import { map, debounceTime, switchMap, filter, tap, delay } from 'rxjs/operators';
 import { IBook } from 'src/models/book.models';
 import { BookService } from 'src/app/services/book.service';
-import { parseApi } from 'src/utils/api.parsing';
 import appear from '../../animations/appear'
+import { Store } from '@ngrx/store';
+import { State } from 'src/store';
+import { loadBookList } from 'src/store/actions/book.actions';
 
 @Component({
   selector: 'app-search-input',
@@ -21,7 +23,7 @@ export class SearchInputComponent implements AfterViewInit {
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private store: Store<State>) { }
 
   ngAfterViewInit() {
     fromEvent(this.searchInput.nativeElement, 'input')
@@ -35,8 +37,8 @@ export class SearchInputComponent implements AfterViewInit {
           this.active = true
         }),
         delay(1000),
-        switchMap(searchValue => this.bookService.getSearchBooks(searchValue, 6)),
-        map(bookRes => parseApi(bookRes.items)),
+        switchMap(searchValue => this.bookService.getBooks(searchValue, 6)),
+        map(bookRes => bookRes.items),
         tap(() => this.loading = false)
       )
       .subscribe(bookList => this.searchResult = bookList)
@@ -44,6 +46,14 @@ export class SearchInputComponent implements AfterViewInit {
 
   onBookClick(event: any) {
 
+  }
+
+  onSearchClick() {
+    if (this.searchInput.nativeElement.value) {
+      const searchValue = this.searchInput.nativeElement.value
+
+      this.store.dispatch(loadBookList({searchValue}))
+    }
   }
 
   onBlur(event: MouseEvent) {

@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadBookList())
+    this.store.dispatch(loadBookList({}))
   }
 
   loadNextBookList(event: MouseEvent) {

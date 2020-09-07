@@ -1,7 +1,10 @@
 <div class="search-wrapper">
   <div class="search-input">
-    <input #searchInput type="text" (blur)="onBlur($event)" placeholder="Книга, серия, автор, жанр, тег">
-    <a class="find-btn" href="#">Найти</a>
+    <input #searchInput 
+           type="text" 
+           (blur)="onBlur($event)" 
+           placeholder="Книга, серия, автор, жанр, тег">
+    <a class="find-btn" href="#" (mousedown)="onSearchClick()">Найти</a>
   </div>
 
   <div class="search-result" *ngIf="active">

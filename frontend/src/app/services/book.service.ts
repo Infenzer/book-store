@@ -9,16 +9,18 @@ import { IBookResponce } from '../../models/book.models'
 export class BookService {
   maxResults = 16
   startIndex = 0
+  searchValue = 'Метро'
 
   constructor(private http: HttpClient) { }
 
-  getBooks(maxResults = 16): Observable<IBookResponce> {
+  getBooks(search = 'Метро', maxResults = 16): Observable<IBookResponce> {
     const results = `maxResults=${maxResults}&`
 
     this.maxResults = maxResults
     this.startIndex = 0
+    this.searchValue = search
 
-    return this.http.get<IBookResponce>('https://www.googleapis.com/books/v1/volumes?q=Метро&' + results)
+    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${search}&` + results)
   }
 
   getNextBooks() {
@@ -27,11 +29,6 @@ export class BookService {
     const results = `maxResults=${this.maxResults}&`
     const index = `startIndex=${this.startIndex}&`
     
-    return this.http.get<IBookResponce>('https://www.googleapis.com/books/v1/volumes?q=Метро&' + results + index)
-  }
-
-  getSearchBooks(search: string, maxResults = 10) {
-    const results = `maxResults=${maxResults}&`
-    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${search}&` + results)
+    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${this.searchValue}&` + results + index)
   }
 }

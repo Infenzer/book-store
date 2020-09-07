@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { createEffect, Actions, ofType } from '@ngrx/effects'
 import { BookService } from '../../app/services/book.service'
-import { EBookActions } from '../actions/book.actions'
+import { EBookActions, loadBookList } from '../actions/book.actions'
 import { mergeMap, map, catchError, tap, delay } from 'rxjs/operators'
 import { of } from 'rxjs'
 import { parseApi } from '../../utils/api.parsing'
@@ -10,8 +10,8 @@ import { parseApi } from '../../utils/api.parsing'
 export class BookEffects {
   loadBooks$ = createEffect(() => 
     this.actions$.pipe(
-      ofType(EBookActions.loadBookList),
-      mergeMap(() => this.bookService.getBooks()
+      ofType<ReturnType<typeof loadBookList>>(EBookActions.loadBookList),
+      mergeMap(action => this.bookService.getBooks(action.searchValue)
         .pipe(
           delay(1000),
           tap(bookRes => console.log(bookRes)),

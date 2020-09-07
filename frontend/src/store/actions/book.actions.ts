@@ -14,6 +14,7 @@ export enum EBookActions {
 // loadBookList
 export const loadBookList = createAction(
   EBookActions.loadBookList,
+  props<{searchValue?: string}>()
 )
 
 export const loadBookListSuccess = createAction(
