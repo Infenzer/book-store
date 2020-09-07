@@ -15,7 +15,7 @@ const initialState: State = {
 
 const _bookReducer = createReducer(
   initialState,
-  on(BookActions.loadBookList, state => ({...state, loading: true})),
+  on(BookActions.loadBookList, state => ({...state, bookList: [], loading: true})),
   on(BookActions.loadBookListSuccess, (state, {bookList}) => ({...state, bookList, loading: false})),
 
   on(BookActions.nextBookList, state => ({...state, loading: true})),
