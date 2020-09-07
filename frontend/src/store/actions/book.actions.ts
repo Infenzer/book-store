@@ -8,7 +8,11 @@ export enum EBookActions {
 
   nextBookList = '[BOOK API] next book list',
   nextBookListSuccess = '[BOOK API] next book list success',
-  nextBookListError = '[BOOK API] next book list ERROR'
+  nextBookListError = '[BOOK API] next book list ERROR',
+
+  bookDetails = '[BOOK API] book details',
+  bookDetailsSuccess = '[BOOK API] book details success',
+  bookDetailsError = '[BOOK API] book details ERROR',
 }
 
 // loadBookList
@@ -38,4 +42,19 @@ export const nextBookListSuccess = createAction(
 
 export const nextBookListError = createAction(
   EBookActions.nextBookListError
+)
+
+// bookDetails
+export const bookDetails = createAction(
+  EBookActions.bookDetails,
+  props<{bookId: string}>()
+)
+
+export const bookDetailsSuccess = createAction(
+  EBookActions.bookDetailsSuccess,
+  props<{bookDetails: IBook}>()
+)
+
+export const bookDetailsError = createAction(
+  EBookActions.bookDetailsError
 )

@@ -15,7 +15,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { reducers } from '../store'
 import { environment } from 'src/environments/environment';
 import { BookEffects } from '../store/effects/book.effects';
-import { SearchInputComponent } from './components/search-input/search-input.component'
+import { SearchInputComponent } from './components/search-input/search-input.component';
+import { BookDetailsComponent } from './pages/book-details/book-details.component'
  
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SearchInputComponent } from './components/search-input/search-input.com
     MainPageComponent,
     HeaderComponent,
     LoaderComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    BookDetailsComponent
   ],
   imports: [
     BrowserModule,

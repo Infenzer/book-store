@@ -7,6 +7,7 @@ import appear from '../../animations/appear'
 import { Store } from '@ngrx/store';
 import { State } from 'src/store';
 import { loadBookList } from 'src/store/actions/book.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-input',
@@ -23,7 +24,7 @@ export class SearchInputComponent implements AfterViewInit {
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>
 
-  constructor(private bookService: BookService, private store: Store<State>) { }
+  constructor(private bookService: BookService, private store: Store<State>, private router: Router) { }
 
   ngAfterViewInit() {
     fromEvent(this.searchInput.nativeElement, 'input')
@@ -44,8 +45,8 @@ export class SearchInputComponent implements AfterViewInit {
       .subscribe(bookList => this.searchResult = bookList)
   }
 
-  onBookClick(event: any) {
-
+  onBookClick(id: string) {
+    this.router.navigate(['book', id])
   }
 
   onSearchClick() {

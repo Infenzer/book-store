@@ -6,11 +6,13 @@ import { Action } from "@ngrx/store";
 export interface State {
   bookList: IBook[]
   loading: boolean
+  bookDetails: IBook | null
 }
 
 const initialState: State = {
   bookList: [],
-  loading: true
+  loading: true,
+  bookDetails: null
 }
 
 const _bookReducer = createReducer(
@@ -26,6 +28,9 @@ const _bookReducer = createReducer(
       loading: false
     }
   )),
+
+  on(BookActions.bookDetails, state => ({...state, loading: true})),
+  on(BookActions.bookDetailsSuccess, (state, {bookDetails}) => ({...state, bookDetails, loading: false})),
 )
 
 export const bookReducer = (state: State | undefined, action: Action) => {

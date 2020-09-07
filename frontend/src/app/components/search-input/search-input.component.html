@@ -9,7 +9,7 @@
 
   <div class="search-result" *ngIf="active">
     <ul *ngIf="searchResult.length">
-      <li @appear (click)="onBookClick($event)" class="book" *ngFor="let book of searchResult">
+      <li @appear (mousedown)="onBookClick(book.id)" class="book" *ngFor="let book of searchResult">
         <img src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
         <div class="title">{{book.volumeInfo.title}}</div>
         <div *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="sale-info">

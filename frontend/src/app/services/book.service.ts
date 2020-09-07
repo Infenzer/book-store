@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { IBookResponce } from '../../models/book.models'
+import { IBookResponce, IBook } from '../../models/book.models'
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,9 @@ export class BookService {
     const index = `startIndex=${this.startIndex}&`
     
     return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${this.searchValue}&` + results + index)
+  }
+
+  getBookDetails(id: string) {
+    return this.http.get<IBook>('https://www.googleapis.com/books/v1/volumes/' + id)
   }
 }

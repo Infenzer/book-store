@@ -1,6 +1,6 @@
 <div class="main-page" *ngIf="!(loading$ | async) || (books$ | async).length">
   <div class="book-list">
-    <a href="#" class="book" *ngFor="let book of books$ | async">
+    <a [routerLink]="['book', book.id]" class="book" *ngFor="let book of books$ | async">
 
       <p class="title">{{book.volumeInfo.title}}</p>
       <img class="book-image" src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
