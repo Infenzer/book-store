@@ -14,3 +14,8 @@ export const selectBookList = createSelector(
   selectBook,
   state => state.bookList
 )
+
+export const selectBookDetails = createSelector(
+  selectBook,
+  state => state.bookDetails
+)

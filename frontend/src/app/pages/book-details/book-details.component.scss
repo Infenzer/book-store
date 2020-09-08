@@ -1,3 +1,85 @@
+.book-details {
+  margin: 1em 2.5em;
+
+  .info {
+    display: flex;
+    justify-content: center;
+  }
+
+  .row {
+    margin-top: .5em;
+  }
+
+  .image-col {
+    width: 35%;
+    margin-top: 2em;
+    text-align: center;
+    
+    img {
+      width: 40%;
+      margin: auto;
+    }
+  }
+
+  .info-col {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+
+    .btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      margin-left: 2em;
+      margin-top: 1em;
+      height: 12em;
+
+      .btn {
+        margin: .2em;
+        padding: .5em;
+        font-size: 1.2em;
+        font-weight: bold;
+        border: 1px solid black;
+        display: flex;
+        align-items: center;
+        transition: .4s;
+
+        .icon {
+          height: 1em;
+          margin-right: .5em;
+        }
+      }
+
+      .btn:hover {
+        padding: 1.2em;
+      }
+    }
+
+    .description {
+      font-size: .8em;
+    }
+
+    .about-book {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 2em;
+    }
+
+    .authors-wrapper,
+    .categories-wrapper {
+      display: flex;
+      
+      p {
+        margin: 0 .5em 0 0;
+      }
+    }
+  }
+}
+
 .loader-wrapper {
   width: 100vw;
   height: 80vh;

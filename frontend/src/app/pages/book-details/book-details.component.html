@@ -1,5 +1,52 @@
 <div class="book-details" *ngIf="!(loading$ | async)">
+  <div class="info">
+    <div class="image-col">
+      <img src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
+    </div>
+  
+    <div class="info-col">
+      <div class="title row">{{book.volumeInfo.title}}</div>
+      <div class="authors-wrapper row" *ngIf="book.volumeInfo.authors">
+        <p>{{book.volumeInfo.authors.length === 1 ? 'Автор: ' : 'Авторы: '}}</p>
+        <ul>
+          <li *ngFor="let author of book.volumeInfo.authors">{{author}}</li>
+        </ul>
+      </div>
+      <div class="categories-wrapper row">
+        <p>{{book.volumeInfo.categories.length === 1 ? 'Жанр:' : 'Жанры:'}}</p>
+        <ul>
+          <li *ngFor="let categorie of book.volumeInfo.categories">{{categorie}}</li>
+        </ul>
+      </div>
+      <div class="publication-date row">{{'Дата публикации: ' + book.volumeInfo.publishedDate}}</div>
+      <div class="language row">{{'Язык: ' + book.volumeInfo.language}}</div>
+      <div class="page-count row">{{'Кол-во страниц: ' + book.volumeInfo.pageCount}}</div>
+      <div class="publisher row">{{'Издатель: ' + book.volumeInfo.publisher}}</div>
+  
+      <div class="about-book row">О Книге</div>
+      <div class="description row">{{book.volumeInfo.description}}</div>
+  
+      <div class="sale row">
+        <div class="btn-wrapper">
+          <a class="buy btn" href="#">
+            <img class="icon" src="../../../assets/images/shopping-cart-solid.svg" alt="shoping-cart">
+            {{'Купить за ' + book.saleInfo.retailPrice.amount + book.saleInfo.retailPrice.currencyCode}}
+          </a>
+          <a class="wishful btn" href="#">
+            <img class="icon" src="../../../assets/images/heart-solid.svg" alt="heart">
+            В список желаемого
+          </a>
+          <a class="reed btn" href="#">
+            <img class="icon" src="../../../assets/images/book-open-solid.svg" alt="book">
+            Читать фрагмент
+          </a>
+        </div>
+      </div>
+  
+    </div>
+  </div>
 
+  <hr>
 </div>
 <div class="loader-wrapper" *ngIf="(loading$ | async)">
   <app-loader></app-loader>
