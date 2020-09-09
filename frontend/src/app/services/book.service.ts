@@ -11,6 +11,7 @@ export class BookService {
   maxResults = 16
   startIndex = 0
   searchValue = 'Метро'
+  baseURL = 'https://www.googleapis.com/books/v1/volumes'
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +22,7 @@ export class BookService {
     this.startIndex = 0
     this.searchValue = search
 
-    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${search}&` + results)
+    return this.http.get<IBookResponce>(`${this.baseURL}?q=${search}&` + results)
   }
 
   getNextBooks() {
@@ -30,15 +31,16 @@ export class BookService {
     const results = `maxResults=${this.maxResults}&`
     const index = `startIndex=${this.startIndex}&`
     
-    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${this.searchValue}&` + results + index)
+    return this.http.get<IBookResponce>(`${this.baseURL}?q=${this.searchValue}&` + results + index)
   }
 
   getBookDetails(id: string) {
-    return this.http.get<IBook>('https://www.googleapis.com/books/v1/volumes/' + id)
+    return this.http.get<IBook>(`${this.baseURL}/` + id)
   }
 
-  getBookByFilter(filterType: EBookFilter, filterValue: string) {
-    
-    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${filterType}:${filterValue}`)
+  getBookByFilter(filterType: EBookFilter, filterValue: string, maxResults = 40) {
+    const results = `maxResults=${maxResults}&`
+
+    return this.http.get<IBookResponce>(`${this.baseURL}?q=${filterType}:${filterValue}&` + results)
   }
 }

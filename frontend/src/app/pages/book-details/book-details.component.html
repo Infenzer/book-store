@@ -54,17 +54,29 @@
       <a class="book" [routerLink]="['' ,'book', authorBook.id]" *ngFor="let authorBook of authorBooks">
         <div class="book-title">{{authorBook.volumeInfo.title}}</div>
         <img src="{{authorBook.volumeInfo.imageLinks.thumbnail}}" alt="book">
-        <a href="#" class="basket-btn">В корзину</a>
+        <div class="sale-info" *ngIf="authorBook.saleInfo.saleability === 'FOR_SALE'">
+          <a href="#" class="basket-btn">В корзину</a>
+          <div class="price">{{authorBook.saleInfo.retailPrice.amount + authorBook.saleInfo.retailPrice.currencyCode}}</div>
+        </div>
+        <div class="sale-info not-for-sale" *ngIf="authorBook.saleInfo.saleability !== 'FOR_SALE'">
+          <p>Не для продажи</p>
+        </div>
       </a>
     </div>
   </div>
   <div class="other-books-genre row">
     <p class="title">Похожие книги</p>
     <div class="book-list">
-      <a class="book" href="#" *ngFor="let authorBook of authorBooks">
-        <div class="book-title">{{authorBook.volumeInfo.title}}</div>
-        <img src="{{authorBook.volumeInfo.imageLinks.thumbnail}}" alt="book">
-        <a href="#" class="basket-btn">В корзину</a>
+      <a class="book" href="#" *ngFor="let otherBook of otherBooks">
+        <div class="book-title">{{otherBook.volumeInfo.title}}</div>
+        <img src="{{otherBook.volumeInfo.imageLinks.thumbnail}}" alt="book">
+        <div class="sale-info" *ngIf="otherBook.saleInfo.saleability === 'FOR_SALE'">
+          <a href="#" class="basket-btn">В корзину</a>
+          <div class="price">{{otherBook.saleInfo.retailPrice.amount + otherBook.saleInfo.retailPrice.currencyCode}}</div>
+        </div>
+        <div class="sale-info not-for-sale" *ngIf="otherBook.saleInfo.saleability !== 'FOR_SALE'">
+          <p>Не для продажи</p>
+        </div>
       </a>
     </div>
   </div>
