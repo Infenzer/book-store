@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { IBookResponce, IBook } from '../../models/book.models'
+import { EBookFilter } from '../../models/book.models'
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,10 @@ export class BookService {
 
   getBookDetails(id: string) {
     return this.http.get<IBook>('https://www.googleapis.com/books/v1/volumes/' + id)
+  }
+
+  getBookByFilter(filterType: EBookFilter, filterValue: string) {
+    
+    return this.http.get<IBookResponce>(`https://www.googleapis.com/books/v1/volumes?q=${filterType}:${filterValue}`)
   }
 }

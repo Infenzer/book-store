@@ -4,8 +4,8 @@ import { State, selectBookDetails } from 'src/store';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { bookDetails } from 'src/store/actions/book.actions';
-import { IBook } from 'src/models/book.models';
-import { style } from '@angular/animations';
+import { IBook, EBookFilter } from 'src/models/book.models';
+import { BookService } from 'src/app/services/book.service';
 
 @Component({
   selector: 'app-book-details',
@@ -16,8 +16,9 @@ export class BookDetailsComponent implements OnInit {
   loading$: Observable<boolean>
   book$: Observable<IBook>
   book: IBook
+  authorBooks: IBook[]
 
-  constructor(private store: Store<State>, private activatedRoute: ActivatedRoute) {
+  constructor(private store: Store<State>, private activatedRoute: ActivatedRoute, private service: BookService) {
     this.loading$ = store.select(store => store.book.loading)
     this.book$ = store.select(selectBookDetails)
   }
@@ -27,7 +28,19 @@ export class BookDetailsComponent implements OnInit {
       this.store.dispatch(bookDetails( {bookId: params['id']} ))
     })
 
-    this.book$.subscribe(bookDetails => this.book = bookDetails)
+    this.book$.subscribe(bookDetails => {
+      this.book = bookDetails
+
+      if (bookDetails) {
+        this.service.getBookByFilter(EBookFilter.inauthor, bookDetails.volumeInfo.authors[0])
+        .subscribe(authorBooks => {
+          this.authorBooks = authorBooks.items
+            .filter(authorBook => authorBook.id !== bookDetails.id)
+            .slice(0, 5)
+        })
+      }
+
+    })
   }
 
 }

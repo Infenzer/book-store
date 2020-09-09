@@ -68,3 +68,12 @@ export interface IBook {
   selfLink: string
   volumeInfo: IVolumeInfo
 }
+
+export enum EBookFilter {
+  intitle = 'intitle',
+  inauthor = 'inauthor',
+  subject = 'subject',
+  isbn = 'isbn',
+  lccn = 'lccn',
+  oclc = 'oclc',
+}

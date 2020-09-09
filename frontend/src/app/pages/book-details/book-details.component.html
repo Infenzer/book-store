@@ -47,6 +47,28 @@
   </div>
 
   <hr>
+
+  <div class="other-books-author row">
+    <p class="title">Другие книги автора</p>
+    <div class="book-list">
+      <a class="book" [routerLink]="['' ,'book', authorBook.id]" *ngFor="let authorBook of authorBooks">
+        <div class="book-title">{{authorBook.volumeInfo.title}}</div>
+        <img src="{{authorBook.volumeInfo.imageLinks.thumbnail}}" alt="book">
+        <a href="#" class="basket-btn">В корзину</a>
+      </a>
+    </div>
+  </div>
+  <div class="other-books-genre row">
+    <p class="title">Похожие книги</p>
+    <div class="book-list">
+      <a class="book" href="#" *ngFor="let authorBook of authorBooks">
+        <div class="book-title">{{authorBook.volumeInfo.title}}</div>
+        <img src="{{authorBook.volumeInfo.imageLinks.thumbnail}}" alt="book">
+        <a href="#" class="basket-btn">В корзину</a>
+      </a>
+    </div>
+  </div>
+
 </div>
 <div class="loader-wrapper" *ngIf="(loading$ | async)">
   <app-loader></app-loader>

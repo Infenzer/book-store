@@ -1,5 +1,5 @@
 .book-details {
-  margin: 1em 2.5em;
+  margin: 1em 2.5em 2em;
 
   .info {
     display: flex;
@@ -75,6 +75,42 @@
       
       p {
         margin: 0 .5em 0 0;
+      }
+    }
+  }
+
+  .other-books-author,
+  .other-books-genre {
+    .title {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+    
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .5em;
+
+      .book {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        border: 1px solid black;
+
+        .basket-btn {
+          border: 1px solid black;
+          background-color: #F4F25A;
+          padding: .5em;
+          transition: 0.4s;
+          margin-bottom: .3em;
+        }
+
+        .basket-btn:hover {
+          padding: 0.8em;
+        }
       }
     }
   }
