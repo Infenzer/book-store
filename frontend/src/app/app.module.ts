@@ -16,7 +16,8 @@ import { reducers } from '../store'
 import { environment } from 'src/environments/environment';
 import { BookEffects } from '../store/effects/book.effects';
 import { SearchInputComponent } from './components/search-input/search-input.component';
-import { BookDetailsComponent } from './pages/book-details/book-details.component'
+import { BookDetailsComponent } from './pages/book-details/book-details.component';
+import { ShortBookListComponent } from './components/short-book-list/short-book-list.component'
  
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BookDetailsComponent } from './pages/book-details/book-details.componen
     HeaderComponent,
     LoaderComponent,
     SearchInputComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    ShortBookListComponent
   ],
   imports: [
     BrowserModule,

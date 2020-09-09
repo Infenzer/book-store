@@ -1,0 +1,16 @@
+<div class="other-books">
+  <p class="title">{{title}}</p>
+  <div class="book-list">
+    <a class="book" [routerLink]="['' , 'book', book.id]" *ngFor="let book of bookList">
+      <div class="book-title">{{book.volumeInfo.title}}</div>
+      <img src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="book">
+      <div class="sale-info" *ngIf="book.saleInfo.saleability === 'FOR_SALE'">
+        <a href="#" class="basket-btn">В корзину</a>
+        <div class="price">{{book.saleInfo.retailPrice.amount + book.saleInfo.retailPrice.currencyCode}}</div>
+      </div>
+      <div class="sale-info not-for-sale" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">
+        <p>Не для продажи</p>
+      </div>
+    </a>
+  </div>
+</div>

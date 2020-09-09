@@ -1,0 +1,47 @@
+.other-books {
+  margin-top: 1em;
+  
+  .title {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  
+  .book-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5em;
+
+    .book {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      border: 1px solid black;
+
+      .sale-info {
+        display: flex;
+        margin: .5em .3em .3em;
+        justify-content: center;
+        align-items: center;
+      }
+
+      img {
+        width: 120px;
+      }
+
+      .basket-btn {
+        border: 1px solid black;
+        background-color: #F4F25A;
+        padding: .5em;
+        transition: 0.4s;
+        margin-right: .4em;
+      }
+
+      .basket-btn:hover {
+        padding: 0.8em;
+      }
+    }
+  }
+}

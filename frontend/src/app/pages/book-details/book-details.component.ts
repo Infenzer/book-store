@@ -35,8 +35,8 @@ export class BookDetailsComponent implements OnInit {
 
       if (bookDetails) {
         this.service.getBookByFilter(EBookFilter.inauthor, bookDetails.volumeInfo.authors[0])
-        .subscribe(authorBooks => {
-          this.authorBooks = this.sortBookList(authorBooks.items, bookDetails)
+        .subscribe(books => {
+          this.authorBooks = this.sortBookList(books.items, bookDetails)
         })
 
         this.service.getBooks(this.service.searchValue, 40).subscribe(books => {
