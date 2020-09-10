@@ -48,8 +48,8 @@
 
   <hr>
 
-  <app-short-book-list [title]="'Другие книги автора'" [bookList]="authorBooks"></app-short-book-list>
-  <app-short-book-list [title]="'Похожие книги'" [bookList]="otherBooks"></app-short-book-list>
+  <app-short-book-list [title]="'Другие книги автора'" [bookList]="authorBooks" (linkClick)="routeBook($event)"></app-short-book-list>
+  <app-short-book-list [title]="'Похожие книги'" [bookList]="otherBooks" (linkClick)="routeBook($event)"></app-short-book-list>
 
 </div>
 <div class="loader-wrapper" *ngIf="(loading$ | async)">

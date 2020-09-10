@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, selectBookDetails } from 'src/store';
-import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { bookDetails } from 'src/store/actions/book.actions';
 import { IBook, EBookFilter } from 'src/models/book.models';
 import { BookService } from 'src/app/services/book.service';
@@ -13,16 +13,19 @@ import { parseApi } from 'src/utils/api.parsing';
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit {
-  loading$: Observable<boolean>
+export class BookDetailsComponent implements OnInit, OnDestroy {
+  loading$ = new BehaviorSubject(true)
   book$: Observable<IBook>
   book: IBook
   authorBooks: IBook[]
   otherBooks: IBook[]
 
-  constructor(private store: Store<State>, private activatedRoute: ActivatedRoute, private service: BookService) {
-    this.loading$ = store.select(store => store.book.loading)
+  constructor(private store: Store<State>,
+              private activatedRoute: ActivatedRoute, 
+              private service: BookService,
+              private router: Router) {
     this.book$ = store.select(selectBookDetails)
+    console.log(this.book, this.authorBooks, this.loading$)
   }
 
   ngOnInit(): void {
@@ -37,14 +40,20 @@ export class BookDetailsComponent implements OnInit {
         this.service.getBookByFilter(EBookFilter.inauthor, bookDetails.volumeInfo.authors[0])
         .subscribe(books => {
           this.authorBooks = this.sortBookList(books.items, bookDetails)
+          this.loading$.next(false)
         })
 
-        this.service.getBooks(this.service.searchValue, 40).subscribe(books => {
+        this.service.getBooks(this.book.volumeInfo.title, 40).subscribe(books => {
           this.otherBooks = this.sortBookList(books.items, bookDetails)
+          this.loading$.next(false)
         })
       }
 
     })
+  }
+
+  ngOnDestroy() {
+    this.resetState()
   }
 
   sortBookList(bookList: IBook[], bookDetails: IBook) {
@@ -54,4 +63,15 @@ export class BookDetailsComponent implements OnInit {
       .slice(0, 4)
   }
 
+  routeBook(event: string) {
+    this.resetState()
+    this.router.navigate(['', 'book', event])
+  }
+
+  resetState() {
+    this.book = null
+    this.authorBooks = []
+    this.otherBooks = []
+    this.loading$.next(true)
+  }
 }

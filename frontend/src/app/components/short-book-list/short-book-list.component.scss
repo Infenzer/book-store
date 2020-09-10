@@ -9,7 +9,7 @@
   .book-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: .5em;
+    gap: 2.5em;
 
     .book {
       display: flex;
@@ -42,6 +42,10 @@
       .basket-btn:hover {
         padding: 0.8em;
       }
+    }
+
+    .book:hover {
+      cursor: pointer;
     }
   }
 }
