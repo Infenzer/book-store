@@ -23,7 +23,7 @@ export interface ISaleInfo {
   isEbook: boolean
   listPrice: {amount: number, currencyCode: string}
   retailPrice: {amount: number, currencyCode: string}
-  saleability: string
+  saleability: 'FOR_SALE' | 'NOT_FOR_SALE'
 }
 
 export interface IImageLinks {
@@ -39,7 +39,7 @@ export interface IVolumeInfo {
   allowAnonLogging: boolean
   authors?: string[]
   canonicalVolumeLink: string
-  categories: string[]
+  categories?: string[]
   contentVersion: string
   description: string
   imageLinks?: IImageLinks

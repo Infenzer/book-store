@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core'
 import { createEffect, Actions, ofType } from '@ngrx/effects'
 import { BookService } from '../../app/services/book.service'
 import { EBookActions, loadBookList, bookDetails, bookDetailsSuccess } from '../actions/book.actions'
-import { mergeMap, map, catchError, tap, delay } from 'rxjs/operators'
-import { of } from 'rxjs'
+import { mergeMap, map, tap, delay } from 'rxjs/operators'
 import { parseApi } from '../../utils/api.parsing'
 import { IBook } from 'src/models/book.models'
 
@@ -43,7 +42,10 @@ export class BookEffects {
       .pipe(
         delay(1000),
         tap(bookDetails => console.log(bookDetails)),
-        map<IBook, ReturnType<typeof bookDetailsSuccess>>(bookDetails => ({type: EBookActions.bookDetailsSuccess, bookDetails}))
+        map<IBook, ReturnType<typeof bookDetailsSuccess>>(bookDetails => ({
+          type: EBookActions.bookDetailsSuccess,
+          bookDetails: parseApi([bookDetails])[0]
+        }))
         // catchError(() => of({type: EBookActions.bookDetailsError}))
       )
     )

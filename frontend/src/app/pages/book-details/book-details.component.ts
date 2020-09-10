@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, selectBookDetails } from 'src/store';
-import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { bookDetails } from 'src/store/actions/book.actions';
 import { IBook, EBookFilter } from 'src/models/book.models';
@@ -13,19 +13,18 @@ import { parseApi } from 'src/utils/api.parsing';
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit, OnDestroy {
+export class BookDetailsComponent implements OnInit {
   loading$ = new BehaviorSubject(true)
   book$: Observable<IBook>
-  book: IBook
-  authorBooks: IBook[]
-  otherBooks: IBook[]
+  book: IBook | null = null
+  authorBooks: IBook[] = []
+  otherBooks: IBook[] = []
 
   constructor(private store: Store<State>,
               private activatedRoute: ActivatedRoute, 
               private service: BookService,
               private router: Router) {
     this.book$ = store.select(selectBookDetails)
-    console.log(this.book, this.authorBooks, this.loading$)
   }
 
   ngOnInit(): void {
@@ -50,10 +49,6 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
       }
 
     })
-  }
-
-  ngOnDestroy() {
-    this.resetState()
   }
 
   sortBookList(bookList: IBook[], bookDetails: IBook) {

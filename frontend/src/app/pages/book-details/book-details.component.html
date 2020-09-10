@@ -12,7 +12,7 @@
           <li *ngFor="let author of book.volumeInfo.authors">{{author}}</li>
         </ul>
       </div>
-      <div class="categories-wrapper row">
+      <div *ngIf="book.volumeInfo.categories" class="categories-wrapper row">
         <p>{{book.volumeInfo.categories.length === 1 ? 'Жанр:' : 'Жанры:'}}</p>
         <ul>
           <li *ngFor="let categorie of book.volumeInfo.categories">{{categorie}}</li>
@@ -28,7 +28,7 @@
   
       <div class="sale row">
         <div class="btn-wrapper">
-          <a class="buy btn" href="#">
+          <a *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="buy btn" href="#">
             <img class="icon" src="../../../assets/images/shopping-cart-solid.svg" alt="shoping-cart">
             {{'Купить за ' + book.saleInfo.retailPrice.amount + book.saleInfo.retailPrice.currencyCode}}
           </a>
@@ -48,8 +48,18 @@
 
   <hr>
 
-  <app-short-book-list [title]="'Другие книги автора'" [bookList]="authorBooks" (linkClick)="routeBook($event)"></app-short-book-list>
-  <app-short-book-list [title]="'Похожие книги'" [bookList]="otherBooks" (linkClick)="routeBook($event)"></app-short-book-list>
+  <app-short-book-list 
+    [title]="'Другие книги автора'" 
+    [bookList]="authorBooks" 
+    (linkClick)="routeBook($event)"
+    *ngIf="authorBooks.length">
+  </app-short-book-list>
+  <app-short-book-list 
+    [title]="'Похожие книги'" 
+    [bookList]="otherBooks" 
+    (linkClick)="routeBook($event)"
+    *ngIf="otherBooks.length">
+  </app-short-book-list>
 
 </div>
 <div class="loader-wrapper" *ngIf="(loading$ | async)">
