@@ -17,23 +17,25 @@ export class SlideDirective implements AfterViewInit {
 
   init() {
     this.sliderContentNode  = <HTMLDivElement>this.elem.nativeElement.firstChild
-    const firstChild = <HTMLDivElement>this.sliderContentNode.firstChild.cloneNode(true)
+    const firstChild = <HTMLDivElement>this.sliderContentNode.firstElementChild.cloneNode(true)
     const lastChild = <HTMLDivElement>this.sliderContentNode.lastChild.cloneNode(true)
+    const width = window.getComputedStyle(this.sliderContentNode.firstElementChild).width
+    const height = window.getComputedStyle(this.sliderContentNode.firstElementChild).height
 
     firstChild.id = 'end'
     lastChild.id = 'start'
 
-    this.slideWidth.emit( parseInt(firstChild.style.width.match(/\d+/)[0]) )
+    this.slideWidth.emit( parseInt(width.match(/\d+/)[0]) )
 
-    this.elem.nativeElement.style.height = firstChild.style.height
-    this.elem.nativeElement.style.width = firstChild.style.width
+    this.elem.nativeElement.style.height = height
+    this.elem.nativeElement.style.width = width
 
-    this.slider.style.height = firstChild.style.height
+    this.slider.style.height = height
 
     this.renderer.insertBefore(this.sliderContentNode, lastChild, this.sliderContentNode.firstChild)
     this.renderer.appendChild(this.sliderContentNode, firstChild)
 
-    this.sliderContentNode.style.left = `-${firstChild.style.width}`
+    this.sliderContentNode.style.left = `-${width}`
   }
 
 }
