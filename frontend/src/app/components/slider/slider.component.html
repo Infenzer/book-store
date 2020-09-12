@@ -1,0 +1,13 @@
+<div class="slider" #slider>
+  <div class="left arrow" (click)="onArrowClick('left')">
+    <img src="../../../assets/images/arrow-down-solid.svg" alt="arrow">
+  </div>
+  <div class="slide" appSlide [slider]="slider" (slideWidth)="setSlideWidth($event)">
+    <div class="slider-content" #sliderContent>
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div class="right arrow" (click)="onArrowClick('right')">
+    <img src="../../../assets/images/arrow-down-solid.svg" alt="arrow">
+  </div>
+</div>

@@ -1,4 +1,16 @@
 <div class="main-page" *ngIf="!(loading$ | async) || (books$ | async).length">
+  <app-slider>
+    <div class="advertising" style="width: 400px; height: 250px;">
+      <h1>Реклама 1</h1>
+    </div>
+    <div class="advertising" style="width: 400px; height: 250px;">
+      <h1>Реклама 2</h1>
+    </div>
+    <div class="advertising" style="width: 400px; height: 250px;">
+      <h1>Реклама 3</h1>
+    </div>
+  </app-slider>
+  
   <div class="book-list">
     <a [routerLink]="['book', book.id]" class="book" *ngFor="let book of books$ | async">
 

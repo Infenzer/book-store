@@ -17,7 +17,9 @@ import { environment } from 'src/environments/environment';
 import { BookEffects } from '../store/effects/book.effects';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
-import { ShortBookListComponent } from './components/short-book-list/short-book-list.component'
+import { ShortBookListComponent } from './components/short-book-list/short-book-list.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { SlideDirective } from './components/slider/slide.directive'
  
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ShortBookListComponent } from './components/short-book-list/short-book-
     LoaderComponent,
     SearchInputComponent,
     BookDetailsComponent,
-    ShortBookListComponent
+    ShortBookListComponent,
+    SliderComponent,
+    SlideDirective
   ],
   imports: [
     BrowserModule,

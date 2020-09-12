@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, selectBookDetails } from 'src/store';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { bookDetails } from 'src/store/actions/book.actions';
 import { IBook, EBookFilter } from 'src/models/book.models';
 import { BookService } from 'src/app/services/book.service';
 import { parseApi } from 'src/utils/api.parsing';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject()
   loading$ = new BehaviorSubject(true)
   book$: Observable<IBook>
   book: IBook | null = null
@@ -32,23 +34,31 @@ export class BookDetailsComponent implements OnInit {
       this.store.dispatch(bookDetails( {bookId: params['id']} ))
     })
 
-    this.book$.subscribe(bookDetails => {
+    this.book$.pipe(takeUntil(this.destroy$)).subscribe(bookDetails => {
       this.book = bookDetails
 
       if (bookDetails) {
         this.service.getBookByFilter(EBookFilter.inauthor, bookDetails.volumeInfo.authors[0])
+        .pipe(takeUntil(this.destroy$))
         .subscribe(books => {
           this.authorBooks = this.sortBookList(books.items, bookDetails)
           this.loading$.next(false)
         })
 
-        this.service.getBooks(this.book.volumeInfo.title, 40).subscribe(books => {
-          this.otherBooks = this.sortBookList(books.items, bookDetails)
-          this.loading$.next(false)
-        })
+        this.service.getBooks(this.book.volumeInfo.title, 40)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(books => {
+            this.otherBooks = this.sortBookList(books.items, bookDetails)
+            this.loading$.next(false)
+          })
       }
 
     })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   sortBookList(bookList: IBook[], bookDetails: IBook) {
