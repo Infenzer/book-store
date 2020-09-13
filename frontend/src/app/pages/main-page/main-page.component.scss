@@ -4,14 +4,27 @@
   align-items: center;
   flex-direction: column;
 
-  .advertising {
-    width: 500px;
-    height: 250px;
-    background-color: yellow;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .slider {
+    margin-bottom: 1em;
+
+    .advertising {
+      width: 800px;
+      height: 250px;
+      background-color: #F4F25A;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      h1 {
+        margin: .5em 0;
+      }
+  
+      p {
+        margin: 0;
+      }
+    }
   }
 
   .load-book {

@@ -1,13 +1,16 @@
-<div class="main-page">
-  <app-slider>
+<div class="main-page" *ngIf="!(loading$ | async) || (books$ | async).length">
+  <app-slider class="slider">
     <div class="advertising">
       <h1>Реклама 1</h1>
+      <p>Здесь могла быть ваша реклама</p>
     </div>
     <div class="advertising">
       <h1>Реклама 2</h1>
+      <p>Здесь могла быть ваша реклама</p>
     </div>
     <div class="advertising">
       <h1>Реклама 3</h1>
+      <p>Здесь могла быть ваша реклама</p>
     </div>
   </app-slider>
   

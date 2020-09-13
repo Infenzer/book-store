@@ -10,6 +10,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
   slideWidth = 0
 
   @ViewChild('sliderContent') sliderContent: ElementRef<HTMLDivElement>
+  @ViewChild('slide') slide: ElementRef<HTMLDivElement>
 
   constructor() { }
 
@@ -17,6 +18,9 @@ export class SliderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const width = window.getComputedStyle(this.slide.nativeElement).width
+    this.setSlideWidth(width)
+
     this.sliderContent.nativeElement.addEventListener('transitionend', () => {
       const sliderContent = this.sliderContent.nativeElement
 
@@ -55,8 +59,9 @@ export class SliderComponent implements OnInit, AfterViewInit {
     this.sliderContent.nativeElement.style.transition = ''
   }
 
-  setSlideWidth(width: number) {
-    this.slideWidth = width
+  setSlideWidth(width: string) {
+    let numberWidth = parseInt(width.match(/\d+/)[0])
+    this.slideWidth = numberWidth
   }
 
 }
