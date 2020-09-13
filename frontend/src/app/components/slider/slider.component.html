@@ -14,7 +14,11 @@
     <img src="../../../assets/images/arrow-down-solid.svg" alt="arrow">
   </div>
 
-  <div class="indicatros">
-    
+  <div class="indicators">
+    <div class="indicator"
+         [ngClass]="{'active': indicator.active}" 
+         *ngFor="let indicator of indicators"
+         (click)="onIndicatorClick(indicator.id)"
+    ></div>
   </div>
 </div>

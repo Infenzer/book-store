@@ -2,6 +2,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+
+  .indicators {
+    position: absolute;
+    top: 85%;
+    display: flex;
+    opacity: .5;
+
+    .indicator {
+      width: .8em;
+      height: .8em;
+      border: 1px solid black;
+      border-radius: 50%;
+      margin: .2em
+    }
+
+    .indicator:hover {
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: black;
+    }
+  }
 
   .slide {
     display: flex;
