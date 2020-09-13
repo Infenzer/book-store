@@ -1,4 +1,4 @@
-import {  AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {  AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 interface IIndicator {
   id: number
@@ -10,10 +10,13 @@ interface IIndicator {
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit, AfterViewInit {
+export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   counter = 1
   slideWidth = 0
   indicators: IIndicator[] = []
+  slideInterval: number
+
+  @Input('auto') auto = true
 
   @ViewChild('sliderContent') sliderContent: ElementRef<HTMLDivElement>
   @ViewChild('slide') slide: ElementRef<HTMLDivElement>
@@ -21,6 +24,11 @@ export class SliderComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.startAutoSlide()
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.slideInterval)
   }
 
   ngAfterViewInit() {
@@ -100,8 +108,22 @@ export class SliderComponent implements OnInit, AfterViewInit {
     this.sliderContent.nativeElement.style.left = -(this.slideWidth * id) + 'px'
     this.sliderContent.nativeElement.style.transition = ''
     this.counter = id
-    
+
     this.setIndicators()
+  }
+
+  onMouseEnter() {
+    clearInterval(this.slideInterval)
+  }
+
+  onMouseLeave() {
+    this.startAutoSlide()
+  }
+
+  startAutoSlide() {
+    if (this.auto) {
+      this.slideInterval = setInterval(() => this.onArrowClick('right'), 4000)
+    }
   }
 
 }

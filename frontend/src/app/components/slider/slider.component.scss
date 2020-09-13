@@ -46,25 +46,31 @@
   }
 
   .left {
+    left: 0;
+
     img {
       transform: rotate(90deg);
     }
   }
 
   .right {
+    right: 0;
+
     img {
       transform: rotate(-90deg);
     }
   }
 
   .arrow {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     padding: 0 1em;
-    opacity: .5;
+    opacity: .3;
     transition: background-color .3s;
+    z-index: 1;
 
     -ms-user-select: none;
     -moz-user-select: none;

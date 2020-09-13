@@ -1,4 +1,4 @@
-<div class="slider" #slider>
+<div class="slider" #slider (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <div class="left arrow" (click)="onArrowClick('left')">
     <img src="../../../assets/images/arrow-down-solid.svg" alt="arrow">
   </div>
