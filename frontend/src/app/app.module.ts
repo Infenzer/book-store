@@ -19,7 +19,9 @@ import { SearchInputComponent } from './components/search-input/search-input.com
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
 import { ShortBookListComponent } from './components/short-book-list/short-book-list.component';
 import { SliderComponent } from './components/slider/slider.component';
-import { SlideDirective } from './components/slider/slide.directive'
+import { SlideDirective } from './components/slider/slide.directive';
+import { FiltersComponent } from './components/filters/filters.component'
+import { FiltersEffects } from './../store/effects/filters.effects'
  
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { SlideDirective } from './components/slider/slide.directive'
     BookDetailsComponent,
     ShortBookListComponent,
     SliderComponent,
-    SlideDirective
+    SlideDirective,
+    FiltersComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { SlideDirective } from './components/slider/slide.directive'
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([BookEffects])
+    EffectsModule.forRoot([BookEffects, FiltersEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
