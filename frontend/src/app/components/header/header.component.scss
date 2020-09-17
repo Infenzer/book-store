@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  background-color: white;
+  z-index: 10;
+  top: 0;
 
   .btn-wrapper {
     margin-right: 1em;
@@ -21,7 +25,7 @@
 
       p {
         margin: 0;
-        margin-right: .5em;
+        margin-left: .5em;
       }
 
       img {
@@ -30,7 +34,7 @@
     }
 
     .basket:hover {
-      padding: 1.2em 2em;
+      padding: 1.2em;
     }
 
     .login {
@@ -42,7 +46,7 @@
     .login:hover {
       background-color: black;
       color: white;
-      padding: 1.2em 2em;
+      padding: 1.2em;
     }
   }
 

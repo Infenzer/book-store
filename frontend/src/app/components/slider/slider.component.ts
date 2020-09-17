@@ -24,8 +24,6 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    window.onblur = () => clearInterval(this.slideInterval)
-    window.onfocus = () => this.startAutoSlide()
     this.startAutoSlide()
   }
 

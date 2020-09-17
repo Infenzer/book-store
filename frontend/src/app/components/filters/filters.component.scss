@@ -1,12 +1,29 @@
 .filtres {
   background-color: #EFEEE9;
-  padding: .5em 2em;
+  padding: 0 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 80px;
+  z-index: 10;
+  transition: opacity .3s;
 
   a {
     padding: 0 1em;
+    transition: .3s;
+  }
+
+  a:hover {
+    font-size: 1.1em;
   }
 
   .active {
     font-weight: bold;
   }
+}
+
+.hidden {
+  opacity: 0;
+  z-index: -10;
 }

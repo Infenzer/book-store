@@ -25,7 +25,7 @@
         <span class="author" *ngFor="let author of book.volumeInfo.authors">{{author}}</span>
       </div>
       <div *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="sale-info">
-        <a class="basket-link" href="#">В корзину</a>
+        <a class="basket-link" href="#" (click)="onAddCartClick($event, book)">В корзину</a>
         <div class="price">{{book.saleInfo.retailPrice.amount + " " + book.saleInfo.retailPrice.currencyCode}}</div>
       </div>
       <div class="sale-info not-for-sale" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>

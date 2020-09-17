@@ -21,7 +21,8 @@ import { ShortBookListComponent } from './components/short-book-list/short-book-
 import { SliderComponent } from './components/slider/slider.component';
 import { SlideDirective } from './components/slider/slide.directive';
 import { FiltersComponent } from './components/filters/filters.component'
-import { FiltersEffects } from './../store/effects/filters.effects'
+import { FiltersEffects } from './../store/effects/filters.effects';
+import { CartPageComponent } from './pages/cart-page/cart-page.component'
  
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FiltersEffects } from './../store/effects/filters.effects'
     ShortBookListComponent,
     SliderComponent,
     SlideDirective,
-    FiltersComponent
+    FiltersComponent,
+    CartPageComponent
   ],
   imports: [
     BrowserModule,
