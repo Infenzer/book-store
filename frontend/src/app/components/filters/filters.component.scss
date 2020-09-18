@@ -7,7 +7,7 @@
   position: sticky;
   top: 80px;
   z-index: 10;
-  transition: opacity .3s;
+  transition: opacity .4s;
 
   a {
     padding: 0 1em;
@@ -25,5 +25,5 @@
 
 .hidden {
   opacity: 0;
-  z-index: -10;
+  visibility: hidden;
 }
