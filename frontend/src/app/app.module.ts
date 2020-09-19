@@ -22,7 +22,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import { SlideDirective } from './components/slider/slide.directive';
 import { FiltersComponent } from './components/filters/filters.component'
 import { FiltersEffects } from './../store/effects/filters.effects';
-import { CartPageComponent } from './pages/cart-page/cart-page.component'
+import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component'
  
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component'
     SliderComponent,
     SlideDirective,
     FiltersComponent,
-    CartPageComponent
+    FavoritePageComponent
   ],
   imports: [
     BrowserModule,

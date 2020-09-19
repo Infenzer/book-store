@@ -5,7 +5,7 @@ import { IBook } from 'src/models/book.models';
 import { Store } from '@ngrx/store';
 import { State, selectBookList } from 'src/store';
 import { loadBookList, nextBookList } from 'src/store/actions/book.actions';
-import { addCartBook } from '../../../store/actions/cart.actions'
+import { addFavoriteBook } from '../../../store/actions/favorite.actions'
 
 @Component({
   selector: 'app-main-page',
@@ -55,11 +55,13 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.store.dispatch(nextBookList())
   }
 
-  onAddCartClick(e: MouseEvent, book: IBook) {
+  onAddFavoriteClick(e: MouseEvent, book: IBook) {
     e.preventDefault()
-    e.stopPropagation()
+    e.stopPropagation();
 
-    this.store.dispatch(addCartBook({book}))
+    (e.currentTarget as HTMLDivElement).classList.toggle('heart-active')
+
+    this.store.dispatch(addFavoriteBook({book}))
   }
 
   onScrollUpClick(e: MouseEvent) {

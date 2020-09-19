@@ -1,0 +1,35 @@
+<div class="favorite-page" *ngIf="!(loading$ | async)">
+
+  <div class="title">Список желаемого</div>
+  <div class="favorite-page-body">
+    <div class="book-list-col">
+
+      <a [routerLink]="['book', book.id]" class="book" *ngFor="let book of bookList">
+        <img src={{book.volumeInfo.imageLinks.thumbnail}} alt="book">
+        <div class="info-wrapper">
+          <div class="book-title">{{book.volumeInfo.title}}</div>
+          <div class="authors">{{book.volumeInfo.authors}}</div>
+          <div class="sale-info" *ngIf="book.saleInfo.saleability === 'FOR_SALE'">
+            <div class="price">{{book.saleInfo.retailPrice.amount + ' ' + book.saleInfo.retailPrice.currencyCode}}</div>
+            <a href="#" class="buy-btn">Купить</a>
+          </div>
+          <div class="sale-info not-for-sale" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>
+        </div>
+        <div class="delete-btn" (click)="onDeleteClick($event, book.id)">
+          <img src="../../../assets/images/times-solid.svg" alt="delete">
+        </div>
+      </a>
+      
+    </div>
+
+    <div class="result-info-col">
+      <div class="result-wrapper">
+        <div class="row result-price">{{'Общая стоимость: ' + totalPrice + 'RUB'}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="loader-wrapper" *ngIf="(loading$ | async)">
+  <app-loader></app-loader>
+</div>

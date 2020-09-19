@@ -9,12 +9,12 @@ import { State } from 'src/store';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  cartBookLength$: Observable<number>
+  favoriteBookLength$: Observable<number>
 
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
-    this.cartBookLength$ = this.store.select(state => state.cart.cartBookList.length)
+    this.favoriteBookLength$ = this.store.select(state => state.favorite.favoriteBookList.length)
   }
 
 }

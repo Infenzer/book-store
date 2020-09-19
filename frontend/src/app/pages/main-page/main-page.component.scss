@@ -60,6 +60,42 @@
   height: 100%;
   width: 100%;
   transition: .6s ease-in;
+  position: relative;
+  overflow: hidden;
+  animation: fade .7s ease-in;
+
+  .test {
+    color: red;
+  }
+
+  .favorite-wrapper {
+    position: absolute;
+    top: calc(45% - 1em);
+    right: -2.5em;
+    transition: right .4s ease-in-out;
+    
+    #heart {
+      width: 2em;
+      color: black;
+      opacity: .5;
+      transition: .4s;
+    }
+
+    #heart:hover {
+      width: 2.5em;
+      color: red;
+    }
+  }
+
+  .heart-active {
+    right: 1em;
+
+    #heart {
+      opacity: 1;
+      width: 2.5;
+      color: red;
+    }
+  }
 
   .author-wrapper {
     .author-title {
@@ -80,15 +116,17 @@
     align-items: center;
     margin: 1em 0;
 
-    .basket-link {
+    .buy-link {
       margin-right: .5em;
+      padding: .5em;
       border: 1px solid black;
       background-color: #F4F25A;
-      padding: .5em;
+      text-align: center;
+      width: 4em;
       transition: .4s;
     }
 
-    .basket-link:hover {
+    .buy-link:hover {
       padding: .8em;
     }
   }
@@ -101,6 +139,7 @@
     padding: 0 .5em;
     font-size: 1.2em;
     font-weight: bold;
+    color: black;
   }
 
   .book-image {
@@ -113,6 +152,10 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   transition: .3s;
   border-radius: .5em;
+
+  .favorite-wrapper{
+    right: 1em
+  }
 }
 
 .click-loader-wrapper {

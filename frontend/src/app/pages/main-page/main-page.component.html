@@ -18,17 +18,22 @@
   <div class="book-list">
     <a [routerLink]="['book', book.id]" class="book" *ngFor="let book of books$ | async">
 
-      <p class="title">{{book.volumeInfo.title}}</p>
+      <p class="title test">{{book.volumeInfo.title}}</p>
       <img class="book-image" src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
       <div class="author-wrapper" *ngIf="book.volumeInfo.authors">
         <p class="author-title">{{book.volumeInfo.authors.length > 1 ? 'Авторы:' : 'Автор:'}}</p>
         <span class="author" *ngFor="let author of book.volumeInfo.authors">{{author}}</span>
       </div>
       <div *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="sale-info">
-        <a class="basket-link" href="#" (click)="onAddCartClick($event, book)">В корзину</a>
+        <a class="buy-link" href="#">Купить</a>
         <div class="price">{{book.saleInfo.retailPrice.amount + " " + book.saleInfo.retailPrice.currencyCode}}</div>
       </div>
       <div class="sale-info not-for-sale" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>
+      <div class="favorite-wrapper" title="В список желаемого" (click)="onAddFavoriteClick($event, book)">
+        <svg id="heart" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" class="svg-inline--fa fa-heart fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
+        </svg>
+      </div>
 
     </a>
   </div>

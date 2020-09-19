@@ -13,7 +13,6 @@
     align-items: center;
 
     .basket {
-      background-color: #F4F25A;
       padding: 1em;
       margin-right: .5em;
       border: 1px solid black;
@@ -28,13 +27,19 @@
         margin-left: .5em;
       }
 
-      img {
+      #heart {
         width: 1.2em;
+        color: red;
       }
     }
 
     .basket:hover {
       padding: 1.2em;
+      background-color: black;
+
+      p {
+        color: white;
+      }
     }
 
     .login {
