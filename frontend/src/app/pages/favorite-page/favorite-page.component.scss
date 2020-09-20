@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: fade .7s ease-in;
 
   .title {
     font-size: 2em;
@@ -41,6 +42,13 @@
     position: sticky;
     top: 30%;
   }
+}
+
+.empty-book-list {
+  margin-top: 25%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
 }
 
 .book-list-col {
@@ -135,4 +143,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

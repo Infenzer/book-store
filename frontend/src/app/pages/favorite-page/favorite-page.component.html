@@ -2,7 +2,7 @@
 
   <div class="title">Список желаемого</div>
   <div class="favorite-page-body">
-    <div class="book-list-col">
+    <div class="book-list-col" *ngIf="bookList.length">
 
       <a [routerLink]="['book', book.id]" class="book" *ngFor="let book of bookList">
         <img src={{book.volumeInfo.imageLinks.thumbnail}} alt="book">
@@ -22,14 +22,18 @@
       
     </div>
 
-    <div class="result-info-col">
+    <div class="result-info-col" *ngIf="bookList.length">
       <div class="result-wrapper">
         <div class="row result-price">{{'Общая стоимость: ' + totalPrice + 'RUB'}}</div>
       </div>
     </div>
+
+    <div class="empty-book-list" *ngIf="!bookList.length">Список желаемого пуст</div>
   </div>
 
 </div>
 <div class="loader-wrapper" *ngIf="(loading$ | async)">
   <app-loader></app-loader>
 </div>
+
+<app-scroll-up></app-scroll-up>

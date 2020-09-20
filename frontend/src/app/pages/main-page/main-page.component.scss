@@ -174,28 +174,6 @@
   align-items: center;
 }
 
-.scroll-up-wrapper {
-  position: fixed;
-  right: 5%;
-  bottom: 5%;
-  background-color: black;
-  border-radius: 100%;
-  transition: .5s, transform 0s;
-
-  #scroll-up {
-    margin: .5em;
-    width: 2.5em;
-    height: 2.5em;
-    color: white;
-  }
-}
-
-.scroll-up-wrapper:hover {
-  cursor: pointer;
-  transform: rotate(-360deg);
-  transition: transform .5s;
-}
-
 .disabled {
   opacity: 0;
   visibility: hidden;

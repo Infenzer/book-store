@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BookService } from 'src/app/services/book.service';
 import { State } from 'src/store';
 import { loadBookList } from 'src/store/actions/book.actions';
 import { deleteFavoriteBook } from 'src/store/actions/favorite.actions';
@@ -18,7 +17,7 @@ export class FavoritePageComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>
   destroy$ = new Subject()
   bookList: IBook[] = []
-  totalPrice = 0
+  totalPrice = '0'
 
   constructor(private store: Store<State>) {
     this.bookList$ = store.select(state => state.favorite.favoriteBookList)
@@ -28,12 +27,14 @@ export class FavoritePageComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadBookList({}))
 
     this.bookList$.pipe(takeUntil(this.destroy$)).subscribe(bookList => {
+      let price = 0
       this.bookList = bookList
       this.bookList.forEach(book => {
         if (book.saleInfo.saleability !== 'FOR_SALE') return
 
-        this.totalPrice += Math.floor(book.saleInfo.retailPrice.amount)
+        price += book.saleInfo.retailPrice.amount
       })
+      this.totalPrice = price.toFixed(2)
     })
   }
 

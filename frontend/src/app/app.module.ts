@@ -22,7 +22,8 @@ import { SliderComponent } from './components/slider/slider.component';
 import { SlideDirective } from './components/slider/slide.directive';
 import { FiltersComponent } from './components/filters/filters.component'
 import { FiltersEffects } from './../store/effects/filters.effects';
-import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component'
+import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component';
+import { ScrollUpComponent } from './components/scroll-up/scroll-up.component'
  
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FavoritePageComponent } from './pages/favorite-page/favorite-page.compo
     SliderComponent,
     SlideDirective,
     FiltersComponent,
-    FavoritePageComponent
+    FavoritePageComponent,
+    ScrollUpComponent
   ],
   imports: [
     BrowserModule,
