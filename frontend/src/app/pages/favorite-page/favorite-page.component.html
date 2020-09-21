@@ -4,7 +4,7 @@
   <div class="favorite-page-body">
     <div class="book-list-col" *ngIf="bookList.length">
 
-      <a [routerLink]="['book', book.id]" class="book" *ngFor="let book of bookList">
+      <a @delete [routerLink]="['book', book.id]" class="book" *ngFor="let book of bookList">
         <img src={{book.volumeInfo.imageLinks.thumbnail}} alt="book">
         <div class="info-wrapper">
           <div class="book-title">{{book.volumeInfo.title}}</div>

@@ -31,6 +31,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
+      this.loading$.next(true)
       this.store.dispatch(bookDetails( {bookId: params['id']} ))
     })
 

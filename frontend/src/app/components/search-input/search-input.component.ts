@@ -4,9 +4,6 @@ import { map, debounceTime, switchMap, filter, tap, delay } from 'rxjs/operators
 import { IBook } from 'src/models/book.models';
 import { BookService } from 'src/app/services/book.service';
 import appear from '../../animations/appear'
-import { Store } from '@ngrx/store';
-import { State } from 'src/store';
-import { loadBookList } from 'src/store/actions/book.actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,7 +21,7 @@ export class SearchInputComponent implements AfterViewInit {
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>
 
-  constructor(private bookService: BookService, private store: Store<State>, private router: Router) { }
+  constructor(private bookService: BookService, private router: Router) { }
 
   ngAfterViewInit() {
     fromEvent(this.searchInput.nativeElement, 'input')
@@ -49,11 +46,15 @@ export class SearchInputComponent implements AfterViewInit {
     this.router.navigate(['book', id])
   }
 
-  onSearchClick() {
+  onSearchClick(e: MouseEvent) {
     if (this.searchInput.nativeElement.value) {
       const searchValue = this.searchInput.nativeElement.value
-
-      this.store.dispatch(loadBookList({searchValue}))
+      this.router.navigate(
+        [''],
+        {
+          queryParams: {searchValue}
+        }
+      )
     }
   }
 

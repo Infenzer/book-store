@@ -30,7 +30,7 @@ export class BookService {
     let params = results + orderBy + filter + printType
     
     if (startIndex) {
-      params + index
+      params += index
     }
 
     return params
@@ -48,7 +48,8 @@ export class BookService {
     this.filters = filters
   }
 
-  getNextBooks() {
+  getNextBooks(maxResults = 16) {
+    this.maxResults = maxResults
     this.startIndex += this.maxResults
     
     return this.http.get<IBookResponce>(`${this.baseURL}?q=${this.searchValue}&` + this.getParams(true))

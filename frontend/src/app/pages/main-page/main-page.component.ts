@@ -7,6 +7,7 @@ import { State, selectBookList } from 'src/store';
 import { loadBookList, nextBookList } from 'src/store/actions/book.actions';
 import { addFavoriteBook, deleteFavoriteBook } from '../../../store/actions/favorite.actions'
 import { takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -22,7 +23,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   favoriteList: IBook[]
   books: IBook[]
   
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private activatedRoute: ActivatedRoute ) {
     this.books$ = store.select(selectBookList)
     this.loading$ = store.select(store => store.book.loading)
     this.favoriteList$ = store.select(store => store.favorite.favoriteBookList)
@@ -34,7 +35,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadBookList({}))
+    this.activatedRoute.queryParams.subscribe(parms => {
+      const searchValue = parms['searchValue'] 
+      
+      if (searchValue) {
+        this.store.dispatch(loadBookList({searchValue}))
+      } else {
+        this.store.dispatch(loadBookList({}))
+      }
+    })
 
     this.favoriteList$.pipe(takeUntil(this.destroy$)).subscribe(favoriteList => {
       this.favoriteList = favoriteList

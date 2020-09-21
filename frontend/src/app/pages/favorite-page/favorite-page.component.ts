@@ -3,14 +3,17 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { State } from 'src/store';
-import { loadBookList } from 'src/store/actions/book.actions';
 import { deleteFavoriteBook } from 'src/store/actions/favorite.actions';
 import { IBook } from '../../../models/book.models'
+import deleteBook from '../../animations/deleteBook'
 
 @Component({
   selector: 'app-favorite-page',
   templateUrl: './favorite-page.component.html',
-  styleUrls: ['./favorite-page.component.scss']
+  styleUrls: ['./favorite-page.component.scss'],
+  animations: [
+    deleteBook
+  ]
 })
 export class FavoritePageComponent implements OnInit, OnDestroy {
   bookList$: Observable<IBook[]>
@@ -24,8 +27,6 @@ export class FavoritePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadBookList({}))
-
     this.bookList$.pipe(takeUntil(this.destroy$)).subscribe(bookList => {
       let price = 0
       this.bookList = bookList
