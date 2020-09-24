@@ -1,0 +1,75 @@
+.auth-modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba($color: #000000, $alpha: .5);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .btn-wrapper {
+      margin-top: .5em;
+      display: flex;
+      height: 6em;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .register-link {
+      margin: .5em 0;
+      color: blue;
+    }
+
+    .login-btn {
+      padding: 1em 2.5em;
+      border: 1px solid black;
+      transition: 0.3s ease-in;
+    }
+
+    .login-btn:hover {
+      background-color: black;
+      color: white;
+      padding: 1.2em
+    }
+
+    .password,
+    .email {
+      margin: .5em 0;
+
+      input {
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  .modal-body {
+    position: relative;
+    border: 1px solid black;
+    background-color: white;
+    width: 35%;
+    padding: 1em;
+
+    .close-btn {
+      position: absolute;
+      top: 1.5em;
+      right: 1.5em;
+      cursor: pointer;
+
+      img {
+        width: 1em;
+      }
+    }
+  }
+
+}
