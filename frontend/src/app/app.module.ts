@@ -23,7 +23,8 @@ import { SlideDirective } from './components/slider/slide.directive';
 import { FiltersComponent } from './components/filters/filters.component'
 import { FiltersEffects } from './../store/effects/filters.effects';
 import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component';
-import { ScrollUpComponent } from './components/scroll-up/scroll-up.component'
+import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
+import { AuthModalComponent } from './components/auth-modal/auth-modal.component'
  
 @NgModule({
   declarations: [
@@ -38,11 +39,11 @@ import { ScrollUpComponent } from './components/scroll-up/scroll-up.component'
     SlideDirective,
     FiltersComponent,
     FavoritePageComponent,
-    ScrollUpComponent
+    ScrollUpComponent,
+    AuthModalComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,

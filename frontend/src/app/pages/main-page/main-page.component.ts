@@ -8,6 +8,7 @@ import { loadBookList, nextBookList } from 'src/store/actions/book.actions';
 import { addFavoriteBook, deleteFavoriteBook } from '../../../store/actions/favorite.actions'
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { AuthModalService } from 'src/app/services/auth-modal.service';
 
 @Component({
   selector: 'app-main-page',
@@ -22,8 +23,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   favoriteList$: Observable<IBook[]>
   favoriteList: IBook[]
   books: IBook[]
+  modalOpen = false
   
-  constructor(private store: Store<State>, private activatedRoute: ActivatedRoute ) {
+  constructor(private store: Store<State>, 
+              private activatedRoute: ActivatedRoute,
+              private authModalService: AuthModalService) {
     this.books$ = store.select(selectBookList)
     this.loading$ = store.select(store => store.book.loading)
     this.favoriteList$ = store.select(store => store.favorite.favoriteBookList)
@@ -47,6 +51,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     this.favoriteList$.pipe(takeUntil(this.destroy$)).subscribe(favoriteList => {
       this.favoriteList = favoriteList
+    })
+
+    this.authModalService.modalOpen$.pipe(takeUntil(this.destroy$)).subscribe(open => {
+      this.modalOpen = open
+
+      if (open) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = 'auto'
+      }
     })
   }
 
