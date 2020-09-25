@@ -2,6 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+interface AuthResponce {
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,15 +14,18 @@ export class AuthModalService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string) {
-    this.http.post('/api/user', {
+  register(email: string, password: string) {
+    return this.http.post<AuthResponce>('/api/user/register', {
       email,
       password
-    }).subscribe(data => console.log(data))
+    })
   }
 
-  register() {
-
+  login(email: string, password: string) {
+    return this.http.post<AuthResponce>('/api/user/login', {
+      email,
+      password
+    })
   }
 
   emitChange(open: boolean) {

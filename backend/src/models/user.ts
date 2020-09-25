@@ -8,12 +8,13 @@ export const User = sequelize.define('User', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  login: {
+  email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   }
 })

@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthModalService } from 'src/app/services/auth-modal.service';
 
 @Component({
@@ -6,9 +8,12 @@ import { AuthModalService } from 'src/app/services/auth-modal.service';
   templateUrl: './auth-modal.component.html',
   styleUrls: ['./auth-modal.component.scss']
 })
-export class AuthModalComponent implements OnInit {
+export class AuthModalComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject()
   email: string
   password: string
+  repeatPassword: string
+  isRegister = false
 
   @ViewChild('body') body: ElementRef<HTMLDivElement>
 
@@ -17,13 +22,56 @@ export class AuthModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
+
   onAuthClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
 
     if (this.email && this.password) {
       this.authModalService.login(this.email, this.password)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          data => console.log(data),
+          error => {
+            this.clearUserData()
+          }
+        )
     }
+  }
+
+  toggleRegistration(e: MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    this.isRegister = !this.isRegister;
+  }
+
+  onRegisterClick(e: MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (this.email && this.password === this.repeatPassword) {
+      this.authModalService.register(this.email, this.password)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          data => console.log(data),
+          error => {
+            this.clearUserData()
+          }
+        )
+    } else {
+      // Alert
+    }
+  }
+
+  clearUserData() {
+    this.password = ''
+    this.email = ''
+    this.repeatPassword = ''
   }
 
   outsideBodyClick(e: MouseEvent) {
