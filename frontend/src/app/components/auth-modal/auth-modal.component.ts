@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthModalService } from 'src/app/services/auth-modal.service';
+import { AuthModalService, AuthResponce } from 'src/app/services/auth-modal.service';
 
 @Component({
   selector: 'app-auth-modal',
@@ -35,7 +35,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       this.authModalService.login(this.email, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
-          data => console.log(data),
+          data => this.authorization(data),
           error => {
             this.clearUserData()
           }
@@ -58,7 +58,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       this.authModalService.register(this.email, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
-          data => console.log(data),
+          data => this.registration(data),
           error => {
             this.clearUserData()
           }
@@ -82,6 +82,18 @@ export class AuthModalComponent implements OnInit, OnDestroy {
 
   onCloseClick() {
     this.authModalService.emitChange(false)
+  }
+
+  registration(data: AuthResponce) {
+    this.isRegister = false
+    this.clearUserData()
+  }
+
+  authorization(data: AuthResponce) {
+    this.onCloseClick()
+    localStorage.setItem('id', data.id)
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('data.refreshToken', data.refreshToken)
   }
 
 }

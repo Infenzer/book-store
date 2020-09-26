@@ -1,13 +1,20 @@
 import express from 'express'
 import path from 'path'
-import userRouter from './routes/user'
+import userRouter from './routes/user.route'
 import { sequelize } from './utils/database'
 import config from 'config'
+import favoriteRouter from './routes/favorite.route'
+import cors from 'cors'
 
 const app = express()
+
+// Удалить в продакшене
+app.use(cors())
+
 app.use(express.static(path.resolve(__dirname, '../../', 'frontend', 'dist', 'book-store')))
 app.use(express.json())
 app.use('/api/user', userRouter)
+app.use('/api/favorite', favoriteRouter)
 // app.get('/', (req, res) => {
 //   res.sendFile(path.resolve(__dirname, '../../', 'frontend', 'dist', 'book-store', 'index.html'))
 // })

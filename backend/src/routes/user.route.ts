@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { User } from "../models/user";
+import { User } from "../models/user.model";
 import bcrypt from 'bcrypt'
 import validator from 'validator';
 import jwt from 'jsonwebtoken'
 import config from 'config'
+import { v4 as uuid } from 'uuid'
 
 interface IUserBody {
   email: string
@@ -30,19 +31,27 @@ userRouter.post<ParameterDecorator, any, IUserBody>('/login', async (req, res) =
       return res.status(400).json({ message: 'Такого пользователя не существует' })
     }
 
-    const isMatch = await bcrypt.compare(password, user.getDataValue('password'))
+    const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
       return res.status(400).json({ message: 'Неверный логин или пароль' })
     }
 
-    const userDbId = user.getDataValue('id')
     const token = jwt.sign(
-      {userId: userDbId},
+      {userId: user.id},
       config.get('secret'),
-      {expiresIn: '10m'}
+      {expiresIn: '60d'}
     )
 
-    res.status(200).json({ token, id: userDbId })
+    // RefreshToken
+    const refreshToken = uuid()
+    user.update({ refreshToken })
+
+    res.status(200).json({ 
+      message: 'Авторизация прошла успешно', 
+      token, 
+      id: user.id,
+      refreshToken, 
+    })
   } catch (e) {
     console.log(e)
     res.status(500).json({
@@ -70,12 +79,12 @@ userRouter.post<ParameterDecorator, any, IUserBody>('/register', async (req, res
     }
 
     const hashPassword = await bcrypt.hash(password, 10)
-    await User.create({
+    const user = await User.create({
       email: req.body.email,
       password: hashPassword,
     })
 
-    res.status(201).json({ message: 'Пользователь создан' })
+    res.status(201).json({ message: 'Пользователь создан',  id: user.id})
   } catch (e) {
     console.log(e)
     res.status(500).json({
