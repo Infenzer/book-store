@@ -1,6 +1,7 @@
 package org.example.backend.controller;
 
 import org.example.backend.dto.ClientDto;
+import org.example.backend.dto.ResMessage;
 import org.example.backend.mapper.ClientMapper;
 import org.example.backend.model.Client;
 import org.example.backend.service.ClientService;
@@ -27,8 +28,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    private ResponseEntity<String> register(@RequestBody @Valid ClientDto clientDto) {
+    private ResponseEntity<ResMessage> register(@RequestBody @Valid ClientDto clientDto) {
         clientService.create(clientMapper.toEntity(clientDto));
-        return new ResponseEntity<>("User created", HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResMessage("User created"), HttpStatus.CREATED);
     }
 }

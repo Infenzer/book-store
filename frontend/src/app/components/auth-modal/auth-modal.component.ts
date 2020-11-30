@@ -2,6 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthModalService } from 'src/app/services/auth-modal.service';
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-auth-modal',
@@ -10,14 +11,16 @@ import { AuthModalService } from 'src/app/services/auth-modal.service';
 })
 export class AuthModalComponent implements OnInit, OnDestroy {
   destroy$ = new Subject()
+  login: string
   email: string
   password: string
   repeatPassword: string
   isRegister = false
 
-  @ViewChild('body') body: ElementRef<HTMLDivElement>
+  errorMessageActive = true
+  errorMessage: string
 
-  constructor(private authModalService: AuthModalService) { }
+  constructor(private authModalService: AuthModalService, private modalRef: MatDialogRef<AuthModalComponent>) { }
 
   ngOnInit(): void {
   }
@@ -31,8 +34,8 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.preventDefault()
     e.stopPropagation()
 
-    if (this.email && this.password) {
-      this.authModalService.login(this.email, this.password)
+    if (this.login && this.password) {
+      this.authModalService.login(this.login, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => console.log(data),
@@ -54,34 +57,49 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.preventDefault()
     e.stopPropagation()
 
-    if (this.email && this.password === this.repeatPassword) {
-      this.authModalService.register(this.email, this.password)
+    if (this.login && this.password === this.repeatPassword) {
+      this.authModalService.register(this.login, this.email, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
-          data => console.log(data),
+          data => {
+            this.isRegister = false
+            console.log(data)
+          },
           error => {
             this.clearUserData()
           }
         )
     } else {
       // Alert
+      this.toggleErrorMessage(true)
+      this.setErrorMessage("Ошибка валидации")
+      setTimeout(()  => {
+        this.toggleErrorMessage(false)
+      }, 5000)
     }
   }
 
   clearUserData() {
+    this.login = ''
     this.password = ''
     this.email = ''
     this.repeatPassword = ''
   }
 
-  outsideBodyClick(e: MouseEvent) {
-    if ( !this.body.nativeElement.contains(e.target as Node) ) {
-      this.authModalService.emitChange(false)
+  onCloseClick() {
+    this.modalRef.close()
+  }
+
+  toggleErrorMessage(active?: boolean) {
+    if (active) {
+      this.errorMessageActive = active
+    } else {
+      this.errorMessageActive = !this.errorMessageActive
     }
   }
 
-  onCloseClick() {
-    this.authModalService.emitChange(false)
+  setErrorMessage(message: string) {
+    this.errorMessage = message
   }
 
 }

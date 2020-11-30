@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-interface AuthResponce {
+interface AuthResponse {
+  message: string
+}
+
+interface RegisterMessage {
   message: string
 }
 
@@ -10,25 +14,24 @@ interface AuthResponce {
   providedIn: 'root'
 })
 export class AuthModalService {
-  modalOpen$ = new Subject<boolean>()
-
   constructor(private http: HttpClient) { }
 
-  register(email: string, password: string) {
-    return this.http.post<AuthResponce>('/api/user/register', {
-      email,
+  private baseUrl = 'http://localhost:8080/auth'
+
+  register(login: string, email: string, password: string) {
+    const resEmail = email?.length ? email.length : null
+
+    return this.http.post<RegisterMessage>(`${this.baseUrl}/register`, {
+      login,
+      email: resEmail,
       password
     })
   }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponce>('/api/user/login', {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, {
       email,
       password
     })
-  }
-
-  emitChange(open: boolean) {
-    this.modalOpen$.next(open)
   }
 }
