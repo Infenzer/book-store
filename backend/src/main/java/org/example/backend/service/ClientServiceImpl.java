@@ -25,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client create(Client client) {
+    public void save(Client client) {
         List<Role> roles = new ArrayList<>();
         Optional<Role> role = roleRepository.findById(1L);
 
@@ -34,7 +34,6 @@ public class ClientServiceImpl implements ClientService {
 
         client.setPassword(passwordEncoder.encode(client.getPassword()));
         clientRepository.save(client);
-        return client;
     }
 
     @Override
@@ -49,5 +48,17 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> readAll() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public boolean findByLoginAndPassword(String login, String password) {
+        Optional<Client> client = clientRepository.findByLogin(login);
+
+        if (client.isPresent()) {
+            String clientPassword = client.get().getPassword();
+            return passwordEncoder.matches(password, clientPassword);
+        }
+
+        return false;
     }
 }

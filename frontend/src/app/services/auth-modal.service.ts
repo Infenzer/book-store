@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-interface AuthResponse {
+interface AuthMessage {
   message: string
 }
 
@@ -28,9 +28,9 @@ export class AuthModalService {
     })
   }
 
-  login(email: string, password: string) {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, {
-      email,
+  login(login: string, password: string) {
+    return this.http.post<AuthMessage>(`${this.baseUrl}/login`, {
+      login,
       password
     })
   }
