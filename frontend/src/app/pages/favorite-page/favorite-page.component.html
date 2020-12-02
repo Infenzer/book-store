@@ -4,8 +4,8 @@
   <div class="favorite-page-body">
     <div class="book-list-col" *ngIf="bookList.length">
 
-      <a @delete [routerLink]="['book', book.id]" class="book" *ngFor="let book of bookList">
-        <img src={{book.volumeInfo.imageLinks.thumbnail}} alt="book">
+      <a @delete [routerLink]="['../book', book.id]" class="book" *ngFor="let book of bookList">
+        <img [src]="book.volumeInfo.imageLinks.thumbnail" alt="book">
         <div class="info-wrapper">
           <div class="book-title">{{book.volumeInfo.title}}</div>
           <div class="authors">{{book.volumeInfo.authors}}</div>
@@ -19,7 +19,7 @@
           <img src="../../../assets/images/times-solid.svg" alt="delete">
         </div>
       </a>
-      
+
     </div>
 
     <div class="result-info-col" *ngIf="bookList.length">

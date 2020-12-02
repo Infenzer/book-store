@@ -25,7 +25,8 @@ import { FiltersEffects } from './../store/effects/filters.effects';
 import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component';
 import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component'
- 
+import {MatDialogModule} from "@angular/material/dialog";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     ScrollUpComponent,
     AuthModalComponent
   ],
+  entryComponents: [AuthModalComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -50,7 +52,8 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([BookEffects, FiltersEffects])
+    EffectsModule.forRoot([BookEffects, FiltersEffects]),
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

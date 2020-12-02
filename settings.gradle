@@ -1,0 +1,4 @@
+rootProject.name = 'bookStore'
+
+include 'frontend'
+include 'backend'

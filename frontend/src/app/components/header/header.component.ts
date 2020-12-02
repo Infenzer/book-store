@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { State } from 'src/store';
-import { AuthModalService } from '../../services/auth-modal.service'
+import {MatDialog} from "@angular/material/dialog";
+import {AuthModalComponent} from "../auth-modal/auth-modal.component";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() authClick = new EventEmitter<MouseEvent>()
 
-  constructor(private store: Store<State>, private authModalService: AuthModalService) { }
+  constructor(private store: Store<State>, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.favoriteBookLength$ = this.store.select(state => state.favorite.favoriteBookList.length)
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
   onAuthClick(e: MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
-    this.authModalService.emitChange(true);
+
+    this.dialog.open(AuthModalComponent);
   }
 
 }
