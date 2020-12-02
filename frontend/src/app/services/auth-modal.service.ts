@@ -17,6 +17,7 @@ export class AuthModalService {
   constructor(private http: HttpClient) { }
 
   private baseUrl = 'http://localhost:8080/auth'
+  public jwtToken: string;
 
   register(login: string, email: string, password: string) {
     const resEmail = email?.length ? email.length : null
@@ -33,5 +34,10 @@ export class AuthModalService {
       login,
       password
     })
+  }
+
+  setJwtToken(jwtToken: string) {
+    console.log(jwtToken)
+    this.jwtToken = jwtToken
   }
 }

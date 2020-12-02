@@ -1,6 +1,7 @@
 package org.example.backend.service;
 
 import org.example.backend.model.Client;
+import org.example.backend.model.FavoriteBook;
 import org.example.backend.model.Role;
 import org.example.backend.repository.ClientRepository;
 import org.example.backend.repository.RoleRepository;
@@ -29,8 +30,22 @@ public class ClientServiceImpl implements ClientService {
         List<Role> roles = new ArrayList<>();
         Optional<Role> role = roleRepository.findById(1L);
 
-        role.ifPresent(roles::add);
+        // Временное заполнение таблиции ролей
+        if (role.isEmpty()) {
+            Role role1 = new Role();
+            role1.setName("USER");
+            roleRepository.save(role1);
+            roles.add(role1);
+        } else {
+            roles.add(role.get());
+        }
+
         client.setRoles(roles);
+
+        FavoriteBook book = new FavoriteBook();
+        book.setTitle("Book " + client.getLogin());
+
+        client.setFavoriteBooks(List.of(book));
 
         client.setPassword(passwordEncoder.encode(client.getPassword()));
         clientRepository.save(client);

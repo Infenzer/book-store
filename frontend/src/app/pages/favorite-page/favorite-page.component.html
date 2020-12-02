@@ -5,7 +5,7 @@
     <div class="book-list-col" *ngIf="bookList.length">
 
       <a @delete [routerLink]="['../book', book.id]" class="book" *ngFor="let book of bookList">
-        <img src={{book.volumeInfo.imageLinks.thumbnail}} alt="book">
+        <img [src]="book.volumeInfo.imageLinks.thumbnail" alt="book">
         <div class="info-wrapper">
           <div class="book-title">{{book.volumeInfo.title}}</div>
           <div class="authors">{{book.volumeInfo.authors}}</div>

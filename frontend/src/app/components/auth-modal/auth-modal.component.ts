@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthModalService } from 'src/app/services/auth-modal.service';
 import {MatDialogRef} from "@angular/material/dialog";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-auth-modal',
@@ -38,10 +39,8 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       this.authModalService.login(this.login, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
-          data => console.log(data),
-          error => {
-            this.clearUserData()
-          }
+          data => this.authModalService.setJwtToken(data.message),
+          (error: HttpErrorResponse) => this.showErrorMessage(error.error.message)
         )
     }
   }
@@ -65,17 +64,11 @@ export class AuthModalComponent implements OnInit, OnDestroy {
             this.isRegister = false
             console.log(data)
           },
-          error => {
-            this.clearUserData()
-          }
+          (error: HttpErrorResponse) => this.showErrorMessage(error.error.message)
         )
     } else {
       // Alert
-      this.toggleErrorMessage(true)
-      this.setErrorMessage("Ошибка валидации")
-      setTimeout(()  => {
-        this.toggleErrorMessage(false)
-      }, 5000)
+      this.showErrorMessage('Ошибка валидации')
     }
   }
 
@@ -96,10 +89,21 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     } else {
       this.errorMessageActive = !this.errorMessageActive
     }
+
+    if (this.errorMessageActive) {
+      setTimeout(() => {
+        this.errorMessageActive = false;
+      }, 5000)
+    }
   }
 
   setErrorMessage(message: string) {
     this.errorMessage = message
   }
 
+  showErrorMessage(error: string) {
+    this.clearUserData();
+    this.setErrorMessage(error)
+    this.toggleErrorMessage(true)
+  }
 }
