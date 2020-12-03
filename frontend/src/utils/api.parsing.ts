@@ -1,5 +1,5 @@
-import { IBook } from '../models/book.models'
- 
+import { IBook } from '../store/types/book'
+
 export const parseApi = (bookList: IBook[]): IBook[] => {
   const newBookList = Array.from(bookList)
 

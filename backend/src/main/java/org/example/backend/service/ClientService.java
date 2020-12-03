@@ -9,5 +9,5 @@ public interface ClientService {
     public void save(Client client);
     public boolean delete(Long id);
     public List<Client> readAll();
-    public boolean findByLoginAndPassword(String login, String password);
+    public Optional<Client> findByLoginAndPassword(String login, String password);
 }

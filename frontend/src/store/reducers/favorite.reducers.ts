@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import { IBook } from "../../models/book.models";
+import { IBook } from "../types/book";
 import * as FavoriteActions from '../actions/favorite.actions'
 
 export interface IFavoriteState {

@@ -1,9 +1,12 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthModalService } from 'src/app/services/auth-modal.service';
+import {AuthRes, AuthService} from 'src/app/services/auth.service';
 import {MatDialogRef} from "@angular/material/dialog";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Store} from '@ngrx/store';
+import {State} from '../../../store';
+import {setClient} from '../../../store/actions/client.action';
 
 @Component({
   selector: 'app-auth-modal',
@@ -21,7 +24,10 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   errorMessageActive = true
   errorMessage: string
 
-  constructor(private authModalService: AuthModalService, private modalRef: MatDialogRef<AuthModalComponent>) { }
+  constructor(private authService: AuthService,
+              private modalRef: MatDialogRef<AuthModalComponent>,
+              private store: Store<State>
+  ) { }
 
   ngOnInit(): void {
   }
@@ -36,10 +42,10 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.stopPropagation()
 
     if (this.login && this.password) {
-      this.authModalService.login(this.login, this.password)
+      this.authService.login(this.login, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
-          data => this.authModalService.setJwtToken(data.message),
+          data => this.setClient(data),
           (error: HttpErrorResponse) => this.showErrorMessage(error.error.message)
         )
     }
@@ -57,7 +63,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.stopPropagation()
 
     if (this.login && this.password === this.repeatPassword) {
-      this.authModalService.register(this.login, this.email, this.password)
+      this.authService.register(this.login, this.email, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
@@ -105,5 +111,16 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     this.clearUserData();
     this.setErrorMessage(error)
     this.toggleErrorMessage(true)
+  }
+
+  setClient(authRes: AuthRes) {
+    console.log(authRes)
+    const client =  {
+      id: authRes.id,
+      username: authRes.username
+    }
+    this.store.dispatch(setClient({client}))
+    this.authService.setJwtToken(authRes.jwtToken)
+    this.modalRef.close()
   }
 }

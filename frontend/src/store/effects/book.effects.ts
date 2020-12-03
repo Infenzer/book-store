@@ -4,11 +4,11 @@ import { BookService } from '../../app/services/book.service'
 import { EBookActions, loadBookList, bookDetails, bookDetailsSuccess } from '../actions/book.actions'
 import { mergeMap, map, tap, delay } from 'rxjs/operators'
 import { parseApi } from '../../utils/api.parsing'
-import { IBook } from 'src/models/book.models'
+import { IBook } from 'src/store/types/book'
 
 @Injectable()
 export class BookEffects {
-  loadBooks$ = createEffect(() => 
+  loadBooks$ = createEffect(() =>
     this.actions$.pipe(
       ofType<ReturnType<typeof loadBookList>>(EBookActions.loadBookList),
       mergeMap(action => this.bookService.getBooks(action.searchValue)
@@ -33,7 +33,7 @@ export class BookEffects {
           // catchError(() => of({type: EBookActions.nextBookListError}))
         )
       )
-    )  
+    )
   )
 
   bookDetails$ = createEffect(() => this.actions$.pipe(

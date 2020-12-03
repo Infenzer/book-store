@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { IBook } from '../../models/book.models'
+import { IBook } from '../types/book'
 
 export enum EFavoriteActions {
   addBook = '[CART] add book',

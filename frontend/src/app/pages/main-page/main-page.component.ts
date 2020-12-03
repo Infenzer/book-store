@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 
-import { IBook } from 'src/models/book.models';
+import { IBook } from 'src/store/types/book';
 import { Store } from '@ngrx/store';
 import { State, selectBookList } from 'src/store';
 import { loadBookList, nextBookList } from 'src/store/actions/book.actions';
 import { addFavoriteBook, deleteFavoriteBook } from '../../../store/actions/favorite.actions'
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import {BookBackendService} from '../../services/book-backend.service';
 
 @Component({
   selector: 'app-main-page',
@@ -16,15 +17,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject()
-  scrollEvent$: Subscription
   loading$: Observable<boolean>
   books$: Observable<IBook[]>
   favoriteList$: Observable<IBook[]>
   favoriteList: IBook[]
-  books: IBook[]
   modalOpen = false
 
   constructor(private store: Store<State>,
+              private bookBackendService: BookBackendService,
               private activatedRoute: ActivatedRoute) {
     this.books$ = store.select(selectBookList)
     this.loading$ = store.select(store => store.book.loading)
@@ -37,8 +37,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(parms => {
-      const searchValue = parms['searchValue']
+    this.activatedRoute.queryParams.subscribe(params => {
+      const searchValue = params['searchValue']
 
       if (searchValue) {
         this.store.dispatch(loadBookList({searchValue}))

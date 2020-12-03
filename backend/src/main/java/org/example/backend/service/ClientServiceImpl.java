@@ -66,14 +66,19 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean findByLoginAndPassword(String login, String password) {
+    public Optional<Client> findByLoginAndPassword(String login, String password) {
         Optional<Client> client = clientRepository.findByLogin(login);
 
         if (client.isPresent()) {
             String clientPassword = client.get().getPassword();
-            return passwordEncoder.matches(password, clientPassword);
+
+            if (passwordEncoder.matches(password, clientPassword)) {
+                return client;
+            } else {
+                return Optional.empty();
+            }
         }
 
-        return false;
+        return Optional.empty();
     }
 }

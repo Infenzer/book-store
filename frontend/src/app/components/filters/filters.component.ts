@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { fromEvent, Subscription } from 'rxjs';
 import { State } from 'src/store';
 import { toggleFilter } from 'src/store/actions/filters.actions';
-import { FilterType } from '../../../models/filter.models'
+import { FilterType } from '../../../store/types/filter'
 
 @Component({
   selector: 'app-filters',

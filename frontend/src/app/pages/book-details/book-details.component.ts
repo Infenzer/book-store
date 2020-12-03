@@ -4,7 +4,7 @@ import { State, selectBookDetails } from 'src/store';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { bookDetails } from 'src/store/actions/book.actions';
-import { IBook, EBookFilter } from 'src/models/book.models';
+import { IBook, EBookFilter } from 'src/store/types/book';
 import { BookService } from 'src/app/services/book.service';
 import { parseApi } from 'src/utils/api.parsing';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   otherBooks: IBook[] = []
 
   constructor(private store: Store<State>,
-              private activatedRoute: ActivatedRoute, 
+              private activatedRoute: ActivatedRoute,
               private service: BookService,
               private router: Router) {
     this.book$ = store.select(selectBookDetails)

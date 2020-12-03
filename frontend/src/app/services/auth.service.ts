@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {baseUrl} from '../../config';
+import {IClient} from '../../store/types/client';
 
-interface AuthMessage {
-  message: string
+export interface AuthRes extends IClient {
+  jwtToken: string
 }
 
 interface RegisterMessage {
@@ -13,10 +14,10 @@ interface RegisterMessage {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthModalService {
+export class AuthService {
   constructor(private http: HttpClient) { }
 
-  private baseUrl = 'http://localhost:8080/auth'
+  private baseUrl = baseUrl + '/auth'
   public jwtToken: string;
 
   register(login: string, email: string, password: string) {
@@ -30,7 +31,7 @@ export class AuthModalService {
   }
 
   login(login: string, password: string) {
-    return this.http.post<AuthMessage>(`${this.baseUrl}/login`, {
+    return this.http.post<AuthRes>(`${this.baseUrl}/login`, {
       login,
       password
     })
@@ -39,5 +40,6 @@ export class AuthModalService {
   setJwtToken(jwtToken: string) {
     console.log(jwtToken)
     this.jwtToken = jwtToken
+    localStorage.setItem('jwtToken', this.jwtToken);
   }
 }

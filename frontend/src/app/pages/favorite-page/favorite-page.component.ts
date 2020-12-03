@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { State } from 'src/store';
 import { deleteFavoriteBook } from 'src/store/actions/favorite.actions';
-import { IBook } from '../../../models/book.models'
+import { IBook } from '../../../store/types/book'
 import deleteBook from '../../animations/deleteBook'
 
 @Component({
