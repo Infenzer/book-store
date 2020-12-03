@@ -46,7 +46,7 @@ public class FavoriteBookController {
     }
 
     @DeleteMapping("/{clientId}/favorite-book/{bookId}")
-    private ResponseEntity<ResMessage> delete(@PathVariable String clientId, @PathVariable Long bookId) {
+    private ResponseEntity<ResMessage> delete(@PathVariable String clientId, @PathVariable String bookId) {
         if (favoriteBookService.delete(bookId)) {
             return new ResponseEntity<>(new ResMessage("Фильм удалён из избранного"), HttpStatus.OK);
         }

@@ -35,9 +35,10 @@ public class FavoriteBookServiceImpl implements FavoriteBookService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        if (favoriteBookRepository.existsById(id)) {
-            favoriteBookRepository.deleteById(id);
+    public boolean delete(String id) {
+        Optional<FavoriteBook> book = favoriteBookRepository.findByBookId(id);
+        if (book.isPresent()) {
+            favoriteBookRepository.deleteById(book.get().getId());
             return true;
         } else {
             return false;

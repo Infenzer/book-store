@@ -13,9 +13,16 @@ export class BookBackendService {
   private baseUrl = baseUrl + '/api/client'
   constructor(private http: HttpClient) { }
 
-  addFavoriteBook(book: IBook, userId: number) {
+  addFavoriteBook(book: IBook, clientId: string) {
     const bookDto = FavoriteBookApiDto.toDto(book)
+    return this.http.post(`${this.baseUrl}/${clientId}/favorite-book`, bookDto)
+  }
 
-    return this.http.post(`${this.baseUrl}/${userId}/favorite-book`, bookDto)
+  deleteFavoriteBook(bookId: string, clientId: string) {
+    return this.http.delete(`${this.baseUrl}/${clientId}/favorite-book/${bookId}`)
+  }
+
+  getAllFavoriteBook(clientId: string) {
+    return this.http.get<FavoriteBookApiDto[]>(`${this.baseUrl}/${clientId}/favorite-book`)
   }
 }
