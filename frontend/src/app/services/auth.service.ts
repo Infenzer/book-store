@@ -37,9 +37,14 @@ export class AuthService {
     })
   }
 
+  logOut() {
+    this.jwtToken = undefined
+    localStorage.setItem('jwtToken', '')
+  }
+
   setJwtToken(jwtToken: string) {
     console.log(jwtToken)
     this.jwtToken = jwtToken
-    localStorage.setItem('jwtToken', this.jwtToken);
+    localStorage.setItem('jwtToken', this.jwtToken)
   }
 }

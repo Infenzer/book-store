@@ -13,6 +13,7 @@
       </svg>
       <p>{{favoriteBookLength$ | async}}</p>
     </a>
-    <a href="#" class="login" (click)="onAuthClick($event)">Войти</a>
+    <a href="#" *ngIf="isClientAuth" class="login" (click)="onLogOutClick($event)">Выйти</a>
+    <a href="#" *ngIf="!isClientAuth" class="login" (click)="onAuthClick($event)">Войти</a>
   </div>
 </div>
