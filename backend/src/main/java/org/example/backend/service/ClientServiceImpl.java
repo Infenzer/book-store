@@ -42,11 +42,6 @@ public class ClientServiceImpl implements ClientService {
 
         client.setRoles(roles);
 
-        FavoriteBook book = new FavoriteBook();
-        book.setTitle("Book " + client.getLogin());
-
-        client.setFavoriteBooks(List.of(book));
-
         client.setPassword(passwordEncoder.encode(client.getPassword()));
         clientRepository.save(client);
     }

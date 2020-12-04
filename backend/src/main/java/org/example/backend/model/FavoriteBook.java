@@ -13,7 +13,7 @@ public class FavoriteBook extends BaseEntity {
     private String bookId;
     private String title;
     private String saleability;
-    private String amount;
+    private Float amount;
     private String currencyCode;
     private String thumbnail;
 

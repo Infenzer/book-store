@@ -15,7 +15,7 @@ public class FavoriteBookDto extends BaseDto {
     private String title;
 
     private String saleability;
-    private String amount;
+    private Float amount;
     private String currencyCode;
     private String thumbnail;
 

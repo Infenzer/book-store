@@ -10,6 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import {BookBackendService} from '../../services/book-backend.service';
 import {IClient} from '../../../store/types/client';
+import FavoriteBookApiDto from '../../../models/FavoriteBookApiDto';
 
 @Component({
   selector: 'app-main-page',
@@ -21,11 +22,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>
   books$: Observable<IBook[]>
   client$: Observable<IClient>
-  favoriteList$: Observable<IBook[]>
+  favoriteList$: Observable<FavoriteBookApiDto[]>
 
   client: IClient
-  favoriteList: IBook[]
-  modalOpen = false
+  favoriteList: FavoriteBookApiDto[]
 
   constructor(private store: Store<State>,
               private bookBackendService: BookBackendService,
@@ -67,14 +67,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(nextBookList())
   }
 
-  onAddFavoriteClick(book: IBook) {
-    const matchFound = this.favoriteList.find(favoriteBook => favoriteBook.id === book.id)
+  onAddFavoriteClick(book: IBook, event: Event) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const bookDto = FavoriteBookApiDto.toDto(book)
+    const matchFound = this.favoriteList.find(favoriteBook => favoriteBook.bookId === book.id)
 
     if (this.client) {
 
       if (!matchFound) {
         this.bookBackendService.addFavoriteBook(book, this.client.id).subscribe(data => {
-          this.store.dispatch(addFavoriteBook({book}))
+          this.store.dispatch(addFavoriteBook({book: bookDto}))
         })
       } else {
         this.bookBackendService.deleteFavoriteBook(book.id, this.client.id).subscribe(data => {
@@ -83,9 +87,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
       }
 
     } else {
-
       if (!matchFound) {
-        this.store.dispatch(addFavoriteBook({book}))
+        this.store.dispatch(addFavoriteBook({book: bookDto}))
       } else {
         this.store.dispatch(deleteFavoriteBook({bookId: book.id}))
       }
@@ -94,7 +97,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   isFavoriteBook(book: IBook) {
-    return !!this.favoriteList.find(fBook => fBook.id === book.id);
+    return !!this.favoriteList.find(fBook => fBook.bookId === book.id);
   }
 
 }
