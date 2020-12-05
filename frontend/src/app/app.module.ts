@@ -26,6 +26,8 @@ import { FavoritePageComponent } from './pages/favorite-page/favorite-page.compo
 import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component'
 import {MatDialogModule} from "@angular/material/dialog";
+import { ReviewsComponent } from './components/rewiews/reviews.component';
+import { ReviewModalComponent } from './components/review-modal/review-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     FiltersComponent,
     FavoritePageComponent,
     ScrollUpComponent,
-    AuthModalComponent
+    AuthModalComponent,
+    ReviewsComponent,
+    ReviewModalComponent
   ],
   entryComponents: [AuthModalComponent],
   imports: [

@@ -15,7 +15,7 @@
     width: 35%;
     margin-top: 2em;
     text-align: center;
-    
+
     img {
       width: 55%;
       margin: auto;
@@ -73,7 +73,7 @@
     .authors-wrapper,
     .categories-wrapper {
       display: flex;
-      
+
       p {
         margin: 0 .5em 0 0;
       }
@@ -98,4 +98,9 @@
   100% {
     opacity: 1;
   }
+}
+
+.divider {
+  margin-top: 4em;
+  margin-bottom: 1em;
 }

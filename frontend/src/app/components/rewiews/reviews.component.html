@@ -1,0 +1,38 @@
+<div class="reviews-component">
+  <div class="reviews-head-wrapper">
+    <div class="title">Отзывы</div>
+    <div class="review-btn-wrapper">
+      <button (click)="openReviewModal()">Написать отзыв</button>
+    </div>
+  </div>
+
+  <div class="review" *ngFor="let review of reviews">
+
+    <div class="review-head">
+      <div class="client-info">
+        <div class="client-name">{{review.authorName}}</div>
+        <div class="client-review-date">{{review.date}}</div>
+      </div>
+      <div class="client-score">
+        <div class="score" *ngFor="let item of getArrayScore(review.score)">
+          <i class="fas fa-star star" [ngStyle]="{'color': item}"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-body">
+      <div class="client-message">{{review.message}}</div>
+    </div>
+
+    <div class="review-footer">
+
+    </div>
+  </div>
+
+  <div class="review-btn-wrapper load-more-btn">
+    <button>Загрузить ещё</button>
+  </div>
+
+</div>
+
+<app-scroll-up></app-scroll-up>

@@ -1,0 +1,63 @@
+.review-modal {
+  position: relative;
+  padding: .5em;
+
+  .close-btn {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    cursor: pointer;
+
+    img {
+      width: 1em;
+    }
+  }
+
+  .title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .score-wrapper {
+    margin: 1em 0;
+    display: flex;
+    align-items: center;
+    height: 3em;
+  }
+
+  .message-wrapper {
+    margin: 1em 0;
+
+    textarea {
+      width: 300px;
+      height: 150px;
+      max-height: 400px;
+      max-width: 500px;
+    }
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .score-stars-wrapper {
+    margin-left: .5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 12em;
+
+    .star {
+      font-size: 1.5em;
+      color: grey;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .star:hover {
+      font-size: 1.9em;
+    }
+  }
+}
