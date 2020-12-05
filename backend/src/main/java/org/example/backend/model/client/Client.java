@@ -1,7 +1,10 @@
-package org.example.backend.model;
+package org.example.backend.model.client;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.example.backend.model.BaseEntity;
+import org.example.backend.model.favoriteBook.FavoriteBook;
+import org.example.backend.model.role.Role;
 
 import javax.persistence.*;
 import java.util.List;

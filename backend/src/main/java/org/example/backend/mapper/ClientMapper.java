@@ -1,7 +1,7 @@
 package org.example.backend.mapper;
 
-import org.example.backend.dto.ClientDto;
-import org.example.backend.model.Client;
+import org.example.backend.dto.client.ClientDto;
+import org.example.backend.model.client.Client;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

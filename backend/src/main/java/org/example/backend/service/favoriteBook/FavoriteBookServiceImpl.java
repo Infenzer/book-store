@@ -1,7 +1,7 @@
-package org.example.backend.service;
+package org.example.backend.service.favoriteBook;
 
-import org.example.backend.model.Client;
-import org.example.backend.model.FavoriteBook;
+import org.example.backend.model.client.Client;
+import org.example.backend.model.favoriteBook.FavoriteBook;
 import org.example.backend.repository.ClientRepository;
 import org.example.backend.repository.FavoriteBookRepository;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,12 @@
 package org.example.backend.controller;
 
-import org.example.backend.dto.AuthMessage;
-import org.example.backend.dto.ClientDto;
-import org.example.backend.dto.ResMessage;
+import org.example.backend.dto.messages.AuthMessage;
+import org.example.backend.dto.client.ClientDto;
+import org.example.backend.dto.messages.ResMessage;
 import org.example.backend.mapper.ClientMapper;
-import org.example.backend.model.Client;
+import org.example.backend.model.client.Client;
 import org.example.backend.security.jwt.JwtProvider;
-import org.example.backend.service.ClientService;
+import org.example.backend.service.client.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

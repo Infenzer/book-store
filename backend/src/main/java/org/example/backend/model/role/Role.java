@@ -1,7 +1,9 @@
-package org.example.backend.model;
+package org.example.backend.model.role;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.example.backend.model.BaseEntity;
+import org.example.backend.model.client.Client;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

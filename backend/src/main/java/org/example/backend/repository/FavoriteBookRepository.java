@@ -1,6 +1,6 @@
 package org.example.backend.repository;
 
-import org.example.backend.model.FavoriteBook;
+import org.example.backend.model.favoriteBook.FavoriteBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

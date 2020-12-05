@@ -1,8 +1,7 @@
-package org.example.backend.service;
+package org.example.backend.service.client;
 
-import org.example.backend.model.Client;
-import org.example.backend.model.FavoriteBook;
-import org.example.backend.model.Role;
+import org.example.backend.model.client.Client;
+import org.example.backend.model.role.Role;
 import org.example.backend.repository.ClientRepository;
 import org.example.backend.repository.RoleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,7 +1,8 @@
-package org.example.backend.dto;
+package org.example.backend.dto.favoriteBook;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.example.backend.dto.BaseDto;
 
 import javax.validation.constraints.NotNull;
 
