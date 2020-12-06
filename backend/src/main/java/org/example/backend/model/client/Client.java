@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.example.backend.model.BaseEntity;
 import org.example.backend.model.favoriteBook.FavoriteBook;
+import org.example.backend.model.review.Review;
 import org.example.backend.model.role.Role;
 
 import javax.persistence.*;
@@ -29,4 +30,8 @@ public class Client extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private List<FavoriteBook> favoriteBooks;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private List<Review> reviews;
 }
