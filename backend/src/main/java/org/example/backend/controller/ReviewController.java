@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/review")
@@ -32,12 +33,13 @@ public class ReviewController {
     }
 
     @PostMapping("/{clientId}")
-    private ResponseEntity<ResMessage> saveReview(@RequestBody @Valid ReviewDto reviewDto, @PathVariable Long clientId) {
-        if (reviewService.saveReview(reviewMapper.toEntity(reviewDto), clientId)) {
-            return new ResponseEntity<>(new ResMessage("Отзыв сохранен успешно"), HttpStatus.OK);
+    private ResponseEntity<ReviewDto> saveReview(@RequestBody @Valid ReviewDto reviewDto, @PathVariable Long clientId) {
+        Optional<Review> savedReview = reviewService.saveReview(reviewMapper.toEntity(reviewDto), clientId);
+        if (savedReview.isPresent()) {
+            return new ResponseEntity<>(reviewMapper.toDto(savedReview.get()), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(new ResMessage("Ошибка при сохранении отзыва"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

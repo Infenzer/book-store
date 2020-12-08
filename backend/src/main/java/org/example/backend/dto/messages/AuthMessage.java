@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AuthMessage {
-    private String id;
+    private Long id;
     private String username;
     private String jwtToken;
 }

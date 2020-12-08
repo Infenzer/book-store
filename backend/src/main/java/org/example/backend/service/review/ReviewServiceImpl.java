@@ -26,15 +26,15 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean saveReview(Review review, Long clientId) {
+    public Optional<Review> saveReview(Review review, Long clientId) {
         Optional<Client> client = clientRepository.findById(clientId);
         if (client.isPresent()) {
             review.setClient(client.get());
-            reviewRepository.save(review);
-            return true;
+            Review savedReview = reviewRepository.save(review);
+            return Optional.of(savedReview);
         }
 
-        return false;
+        return Optional.empty();
     }
 
     @Override

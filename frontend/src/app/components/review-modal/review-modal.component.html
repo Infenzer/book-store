@@ -11,10 +11,11 @@
       </div>
     </div>
   </div>
+  <div class="error-message" *ngIf="errorMessage">{{errorMessage}}</div>
   <div class="message-wrapper">
-    <textarea>
-
-    </textarea>
+    <label>
+      <textarea [(ngModel)]="message"></textarea>
+    </label>
   </div>
   <div class="btn-wrapper">
     <button (click)="sendReview()">Оставить отзыв</button>

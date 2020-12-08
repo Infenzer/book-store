@@ -36,7 +36,7 @@ public class AuthController {
             String token = jwtProvider.generateToken(clientDto.getLogin());
             AuthMessage message = AuthMessage
                     .builder()
-                    .id(client.getId().toString())
+                    .id(client.getId())
                     .username(client.getLogin())
                     .jwtToken(token)
                     .build();
