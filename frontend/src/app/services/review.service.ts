@@ -20,4 +20,8 @@ export class ReviewService {
     console.log(bookId)
     return this.http.get<ReviewApiDto[]>(`${this.baseUrl}/${bookId}`)
   }
+
+  deleteReview(reviewId: number) {
+    return this.http.delete(`${this.baseUrl}/${reviewId}`)
+  }
 }

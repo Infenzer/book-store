@@ -3,12 +3,13 @@ import ReviewApiDto from '../../../models/ReviewApiDto';
 import {MatDialog} from '@angular/material/dialog';
 import {ReviewModalComponent} from '../review-modal/review-modal.component';
 import {ReviewService} from '../../services/review.service';
-import {Observable, Subject} from 'rxjs';
+import {Observable, pipe, Subject} from 'rxjs';
 import {map, switchMap, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {selectBookDetails, State} from '../../../store';
 import {IBook} from '../../../store/types/book';
 import {MessageData, MessageModalComponent} from '../message-modal/message-modal.component';
+import * as Client from  '../../../store/reducers/client.reducer'
 
 @Component({
   selector: 'app-reviews',
@@ -17,20 +18,20 @@ import {MessageData, MessageModalComponent} from '../message-modal/message-modal
 })
 export class ReviewsComponent implements OnInit, OnDestroy {
 
-  clientIsAuth: boolean
+  clientState: Client.State
 
   destroy$ = new Subject()
   bookDetails$: Observable<IBook>
-  clientIsAuth$: Observable<boolean>
+  clientState$: Observable<Client.State>
 
   reviews: ReviewApiDto[]
   constructor(private dialog: MatDialog, private reviewService: ReviewService, private store: Store<State>) {
     this.bookDetails$ = store.select(selectBookDetails)
-    this.clientIsAuth$ = store.select(state => state.client.isAuth)
+    this.clientState$ = store.select(state => state.client)
   }
 
   ngOnInit(): void {
-    this.clientIsAuth$.pipe(takeUntil(this.destroy$)).subscribe(isAuth => this.clientIsAuth = isAuth)
+    this.clientState$.pipe(takeUntil(this.destroy$)).subscribe(state => this.clientState = state)
     this.loadReviews()
   }
 
@@ -45,6 +46,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
       map(bookDetails => bookDetails.id),
       switchMap(bookId => this.reviewService.getReviews(bookId))
     ).subscribe(reviews => {
+      console.log(reviews)
       this.reviews = reviews
     })
   }
@@ -54,7 +56,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   }
 
   openReviewModal() {
-    if (this.clientIsAuth) {
+    if (this.clientState) {
       this.dialog.open(ReviewModalComponent).afterClosed().subscribe((createdReview: ReviewApiDto) => {
         if (createdReview) {
           this.reviews.push(createdReview)
@@ -66,9 +68,42 @@ export class ReviewsComponent implements OnInit, OnDestroy {
         color: 'red'
       }
 
-      this.dialog.open(MessageModalComponent, {
-        data: messageData
-      })
+      this.openMessageModal(messageData)
+    }
+  }
+
+  openMessageModal(data: MessageData, afterClosedFunc?: () => void) {
+    this.dialog.open(MessageModalComponent, {
+      data
+    }).afterClosed().subscribe(data => {
+      afterClosedFunc()
+    })
+  }
+
+  deleteReview(reviewId?: number) {
+    const successFunc = ()  => {
+      const data: MessageData = {
+        message: 'Отзыв успешно удалён'
+      }
+
+      this.openMessageModal(data)
+    }
+
+    const errorFunc = () => {
+      const data: MessageData = {
+        message: 'Во время удаления отзыва произошла ошибка',
+        color: 'red'
+      }
+
+      this.reviews = this.reviews.filter(review => review.id !== reviewId)
+      this.openMessageModal(data)
+    }
+
+    if (reviewId) {
+      this.reviewService.deleteReview(reviewId).pipe(takeUntil(this.destroy$)).subscribe(
+        data => successFunc(),
+        error => errorFunc()
+      )
     }
   }
 

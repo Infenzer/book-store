@@ -8,6 +8,10 @@
 
   <div class="review" *ngFor="let review of reviews">
 
+    <div class="trash" *ngIf="review.owner.id === clientState?.clientInfo?.id" (click)="deleteReview(review.id)">
+      <i class="fas fa-trash"></i>
+    </div>
+
     <div class="review-head">
       <div class="client-info">
         <div class="client-name">{{review.owner.login}}</div>

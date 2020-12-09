@@ -1,5 +1,6 @@
 package org.example.backend.controller;
 
+import org.apache.coyote.Response;
 import org.example.backend.dto.messages.ResMessage;
 import org.example.backend.dto.review.ReviewDto;
 import org.example.backend.mapper.ReviewMapper;
@@ -37,6 +38,15 @@ public class ReviewController {
         Optional<Review> savedReview = reviewService.saveReview(reviewMapper.toEntity(reviewDto), clientId);
         if (savedReview.isPresent()) {
             return new ResponseEntity<>(reviewMapper.toDto(savedReview.get()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{reviewId}")
+    private ResponseEntity<ResMessage> deleteReview(@PathVariable Long reviewId) {
+        if (reviewService.deleteReview(reviewId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

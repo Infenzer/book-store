@@ -1,4 +1,5 @@
 export default class ReviewApiDto {
+  id?: number
   owner?: Owner
   message?: string
   date?: string

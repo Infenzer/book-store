@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export interface MessageData {
   message: string
-  color: string
+  color?: string
 }
 
 @Component({
