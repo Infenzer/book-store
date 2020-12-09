@@ -1,0 +1,26 @@
+.message-modal {
+  position: relative;
+  padding: .5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1em;
+  }
+
+  .message {
+    margin-top: 1.5em;
+  }
+
+  .btn-wrapper {
+
+    button {
+      margin-top: 1em;
+    }
+  }
+}

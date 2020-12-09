@@ -1,0 +1,9 @@
+<div class="message-modal">
+  <div class="close-btn" (click)="close()">
+    <img src="../../../assets/images/times-solid.svg" alt="">
+  </div>
+  <div class="message" [style]="{'color': data.color}">{{data.message}}</div>
+  <div class="btn-wrapper">
+    <button (click)="close()">ОК</button>
+  </div>
+</div>

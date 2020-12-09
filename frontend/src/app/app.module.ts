@@ -28,6 +28,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
 import {MatDialogModule} from "@angular/material/dialog";
 import { ReviewsComponent } from './components/rewiews/reviews.component';
 import { ReviewModalComponent } from './components/review-modal/review-modal.component';
+import { MessageModalComponent } from './components/message-modal/message-modal.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ReviewModalComponent } from './components/review-modal/review-modal.com
     ScrollUpComponent,
     AuthModalComponent,
     ReviewsComponent,
-    ReviewModalComponent
+    ReviewModalComponent,
+    MessageModalComponent
   ],
   entryComponents: [AuthModalComponent],
   imports: [

@@ -8,6 +8,7 @@ import {map, switchMap, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {selectBookDetails, State} from '../../../store';
 import {IBook} from '../../../store/types/book';
+import {MessageData, MessageModalComponent} from '../message-modal/message-modal.component';
 
 @Component({
   selector: 'app-reviews',
@@ -58,6 +59,15 @@ export class ReviewsComponent implements OnInit, OnDestroy {
         if (createdReview) {
           this.reviews.push(createdReview)
         }
+      })
+    } else {
+      const messageData: MessageData = {
+        message: 'Чтобы написать отзыв необходимо авторизироваться',
+        color: 'red'
+      }
+
+      this.dialog.open(MessageModalComponent, {
+        data: messageData
       })
     }
   }
