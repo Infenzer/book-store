@@ -51,4 +51,9 @@ public class AuthController {
         clientService.save(clientMapper.toEntity(clientDto));
         return new ResponseEntity<>(new ResMessage("User created"), HttpStatus.CREATED);
     }
+
+    @GetMapping("/token/{token}")
+    private ResponseEntity<Boolean> checkTokenValid(@PathVariable String token) {
+        return new ResponseEntity<>(jwtProvider.validateToken(token), HttpStatus.OK);
+    }
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreModule } from '@ngrx/store';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects'
 import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -29,6 +29,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ReviewsComponent } from './components/rewiews/reviews.component';
 import { ReviewModalComponent } from './components/review-modal/review-modal.component';
 import { MessageModalComponent } from './components/message-modal/message-modal.component';
+import {AuthInterceptor} from './services/header-interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,13 @@ import { MessageModalComponent } from './components/message-modal/message-modal.
     EffectsModule.forRoot([BookEffects, FiltersEffects]),
     MatDialogModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -39,12 +39,27 @@ export class AuthService {
 
   logOut() {
     this.jwtToken = undefined
-    localStorage.setItem('jwtToken', '')
+    localStorage.removeItem('jwtToken')
+    localStorage.removeItem('client')
+  }
+
+  setClient(id: number, username: string) {
+    const client: IClient = {id, username}
+    localStorage.setItem('client', JSON.stringify(client))
+  }
+
+  getClient(): IClient {
+    return JSON.parse(localStorage.getItem('client'))
   }
 
   setJwtToken(jwtToken: string) {
     console.log(jwtToken)
     this.jwtToken = jwtToken
     localStorage.setItem('jwtToken', this.jwtToken)
+  }
+
+  checkAuth() {
+    const token = localStorage.getItem('jwtToken')
+    return this.http.get<boolean>(`${this.baseUrl}/token/${token}`)
   }
 }

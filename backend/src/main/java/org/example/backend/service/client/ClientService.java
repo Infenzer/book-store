@@ -10,4 +10,5 @@ public interface ClientService {
     boolean delete(Long id);
     List<Client> readAll();
     Optional<Client> findByLoginAndPassword(String login, String password);
+    Optional<Client> findByLogin(String login);
 }

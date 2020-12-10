@@ -17,7 +17,6 @@ export class ReviewService {
   }
 
   getReviews(bookId: string) {
-    console.log(bookId)
     return this.http.get<ReviewApiDto[]>(`${this.baseUrl}/${bookId}`)
   }
 

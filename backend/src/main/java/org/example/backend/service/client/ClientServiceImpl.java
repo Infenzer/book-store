@@ -75,4 +75,9 @@ public class ClientServiceImpl implements ClientService {
 
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Client> findByLogin(String login) {
+        return clientRepository.findByLogin(login);
+    }
 }

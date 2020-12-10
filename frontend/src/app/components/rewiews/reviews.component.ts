@@ -3,7 +3,7 @@ import ReviewApiDto from '../../../models/ReviewApiDto';
 import {MatDialog} from '@angular/material/dialog';
 import {ReviewModalComponent} from '../review-modal/review-modal.component';
 import {ReviewService} from '../../services/review.service';
-import {Observable, pipe, Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {map, switchMap, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {selectBookDetails, State} from '../../../store';

@@ -132,6 +132,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
       username: authRes.username
     }
     this.store.dispatch(setClient({client}))
+    this.authService.setClient(client.id, client.username)
     this.authService.setJwtToken(authRes.jwtToken)
     this.modalRef.close()
   }

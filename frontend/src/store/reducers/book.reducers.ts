@@ -29,7 +29,7 @@ const _bookReducer = createReducer(
     }
   )),
 
-  on(BookActions.bookDetails, state => ({...state, bookDetails: null, loading: true})),
+  on(BookActions.bookDetails, state => ({...state, loading: true})),
   on(BookActions.bookDetailsSuccess, (state, {bookDetails}) => ({...state, bookDetails, loading: false})),
 )
 
