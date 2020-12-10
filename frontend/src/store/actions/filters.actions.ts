@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { FilterType } from '../../models/filter.models'
+import { FilterType } from '../types/filter'
 
 export enum EFiltersActions {
   toggleFilter = '[FILTER] toggle filter',

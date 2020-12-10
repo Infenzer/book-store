@@ -1,6 +1,6 @@
 package org.example.backend.controller;
 
-import org.example.backend.dto.ErrorMessage;
+import org.example.backend.dto.messages.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,9 +21,7 @@ public class GlobalExceptionController {
 
     private List<String> getErrorsDetails(MethodArgumentNotValidException exception) {
         List<String> errors = new ArrayList<>();
-        exception.getBindingResult().getAllErrors().forEach(objectError -> {
-            errors.add(objectError.getDefaultMessage());
-        });
+        exception.getBindingResult().getAllErrors().forEach(objectError -> errors.add(objectError.getDefaultMessage()));
 
         return errors;
     }

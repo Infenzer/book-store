@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { map, debounceTime, switchMap, filter, tap, delay } from 'rxjs/operators';
-import { IBook } from 'src/models/book.models';
+import { IBook } from 'src/store/types/book';
 import { BookService } from 'src/app/services/book.service';
 import appear from '../../animations/appear'
 import { Router } from '@angular/router';

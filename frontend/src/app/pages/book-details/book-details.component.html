@@ -3,7 +3,7 @@
     <div class="image-col">
       <img src="{{book.volumeInfo.imageLinks.thumbnail}}" alt="img">
     </div>
-  
+
     <div class="info-col">
       <div class="title row">{{book.volumeInfo.title}}</div>
       <div class="authors-wrapper row" *ngIf="book.volumeInfo.authors">
@@ -22,10 +22,10 @@
       <div class="language row">{{'Язык: ' + book.volumeInfo.language}}</div>
       <div class="page-count row">{{'Кол-во страниц: ' + book.volumeInfo.pageCount}}</div>
       <div class="publisher row">{{'Издатель: ' + book.volumeInfo.publisher}}</div>
-  
+
       <div class="about-book row">О Книге</div>
       <div class="description row">{{book.volumeInfo.description}}</div>
-  
+
       <div class="sale row">
         <div class="btn-wrapper">
           <a *ngIf="book.saleInfo.saleability === 'FOR_SALE'" class="buy btn" href="#">
@@ -42,26 +42,32 @@
           </a>
         </div>
       </div>
-  
+
     </div>
   </div>
 
   <hr>
 
-  <app-short-book-list 
-    [title]="'Другие книги автора'" 
-    [bookList]="authorBooks" 
+  <app-short-book-list
+    [title]="'Другие книги автора'"
+    [bookList]="authorBooks"
     (linkClick)="routeBook($event)"
     *ngIf="authorBooks.length">
   </app-short-book-list>
-  <app-short-book-list 
-    [title]="'Похожие книги'" 
-    [bookList]="otherBooks" 
+  <app-short-book-list
+    [title]="'Похожие книги'"
+    [bookList]="otherBooks"
     (linkClick)="routeBook($event)"
     *ngIf="otherBooks.length">
   </app-short-book-list>
 
+  <hr class="divider">
+
+  <app-reviews>
+
+  </app-reviews>
 </div>
+
 <div class="loader-wrapper" *ngIf="(loading$ | async)">
   <app-loader></app-loader>
 </div>

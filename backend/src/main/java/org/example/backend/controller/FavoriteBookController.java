@@ -1,10 +1,10 @@
 package org.example.backend.controller;
 
-import org.example.backend.dto.FavoriteBookDto;
-import org.example.backend.dto.ResMessage;
+import org.example.backend.dto.favoriteBook.FavoriteBookDto;
+import org.example.backend.dto.messages.ResMessage;
 import org.example.backend.mapper.FavoriteBookMapper;
-import org.example.backend.model.FavoriteBook;
-import org.example.backend.service.FavoriteBookServiceImpl;
+import org.example.backend.model.favoriteBook.FavoriteBook;
+import org.example.backend.service.favoriteBook.FavoriteBookServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +46,7 @@ public class FavoriteBookController {
     }
 
     @DeleteMapping("/{clientId}/favorite-book/{bookId}")
-    private ResponseEntity<ResMessage> delete(@PathVariable String clientId, @PathVariable Long bookId) {
+    private ResponseEntity<ResMessage> delete(@PathVariable String clientId, @PathVariable String bookId) {
         if (favoriteBookService.delete(bookId)) {
             return new ResponseEntity<>(new ResMessage("Фильм удалён из избранного"), HttpStatus.OK);
         }

@@ -1,4 +1,4 @@
-import { IBook } from "../../models/book.models";
+import { IBook } from "../types/book";
 import { createReducer, on } from "@ngrx/store";
 import * as BookActions from '../actions/book.actions'
 import { Action } from "@ngrx/store";
@@ -21,15 +21,15 @@ const _bookReducer = createReducer(
   on(BookActions.loadBookListSuccess, (state, {bookList}) => ({...state, bookList, loading: false})),
 
   on(BookActions.nextBookList, state => ({...state, loading: true})),
-  on(BookActions.nextBookListSuccess, (state, {nextBookList}) => ( 
+  on(BookActions.nextBookListSuccess, (state, {nextBookList}) => (
     {
-      ...state, 
-      bookList: [...state.bookList, ...nextBookList], 
+      ...state,
+      bookList: [...state.bookList, ...nextBookList],
       loading: false
     }
   )),
 
-  on(BookActions.bookDetails, state => ({...state, bookDetails: null, loading: true})),
+  on(BookActions.bookDetails, state => ({...state, loading: true})),
   on(BookActions.bookDetailsSuccess, (state, {bookDetails}) => ({...state, bookDetails, loading: false})),
 )
 

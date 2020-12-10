@@ -1,7 +1,7 @@
 package org.example.backend.mapper;
 
-import org.example.backend.dto.FavoriteBookDto;
-import org.example.backend.model.FavoriteBook;
+import org.example.backend.dto.favoriteBook.FavoriteBookDto;
+import org.example.backend.model.favoriteBook.FavoriteBook;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

@@ -4,18 +4,18 @@
   <div class="favorite-page-body">
     <div class="book-list-col" *ngIf="bookList.length">
 
-      <a @delete [routerLink]="['../book', book.id]" class="book" *ngFor="let book of bookList">
-        <img [src]="book.volumeInfo.imageLinks.thumbnail" alt="book">
+      <a @delete [routerLink]="['../book', book.bookId]" class="book" *ngFor="let book of bookList">
+        <img [src]="book.thumbnail" alt="book">
         <div class="info-wrapper">
-          <div class="book-title">{{book.volumeInfo.title}}</div>
-          <div class="authors">{{book.volumeInfo.authors}}</div>
-          <div class="sale-info" *ngIf="book.saleInfo.saleability === 'FOR_SALE'">
-            <div class="price">{{book.saleInfo.retailPrice.amount + ' ' + book.saleInfo.retailPrice.currencyCode}}</div>
+          <div class="book-title">{{book.title}}</div>
+          <div class="authors">{{book.authors}}</div>
+          <div class="sale-info" *ngIf="book.saleability === 'FOR_SALE'">
+            <div class="price">{{book.amount + ' ' + book.currencyCode}}</div>
             <a href="#" class="buy-btn">Купить</a>
           </div>
-          <div class="sale-info not-for-sale" *ngIf="book.saleInfo.saleability !== 'FOR_SALE'">Не для продажи</div>
+          <div class="sale-info not-for-sale" *ngIf="book.saleability !== 'FOR_SALE'">Не для продажи</div>
         </div>
-        <div class="delete-btn" (click)="onDeleteClick($event, book.id)">
+        <div class="delete-btn" (click)="onDeleteClick($event, book.bookId)">
           <img src="../../../assets/images/times-solid.svg" alt="delete">
         </div>
       </a>

@@ -1,0 +1,25 @@
+<div class="review-modal">
+  <div class="close-btn" (click)="closeModal()">
+    <img src="../../../assets/images/times-solid.svg" alt="close">
+  </div>
+  <div class="title">Отзыв</div>
+  <div class="score-wrapper">
+    <div class="score-title">Оценка</div>
+    <div class="score-stars-wrapper" (mouseleave)="resetStars()">
+      <div class="score" *ngFor="let item of getStars()">
+        <i class="fas fa-star star" #star [id]="item" (click)="setScore(item)" (mouseenter)="onMouseEnter(item)"></i>
+      </div>
+    </div>
+  </div>
+  <div class="error-message" *ngIf="errorMessage">{{errorMessage}}</div>
+  <div class="message-wrapper">
+    <label>
+      <textarea [(ngModel)]="message"></textarea>
+    </label>
+  </div>
+  <div class="btn-wrapper">
+    <button (click)="sendReview()">Оставить отзыв</button>
+    <button (click)="closeModal()">Отмена</button>
+  </div>
+</div>
+

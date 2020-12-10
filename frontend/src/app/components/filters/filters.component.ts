@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fromEvent, Subscription } from 'rxjs';
+import {fromEvent, Subscription, timer} from 'rxjs';
 import { State } from 'src/store';
 import { toggleFilter } from 'src/store/actions/filters.actions';
-import { FilterType } from '../../../models/filter.models'
+import { FilterType } from '../../../store/types/filter'
+import {debounce, debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-filters',
@@ -31,9 +32,10 @@ export class FiltersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onScroll() {
+    const hasScrollable = document.documentElement.scrollHeight > document.documentElement.offsetHeight
     if (window.scrollY > 0) {
       this.filters.nativeElement.classList.add('hidden')
-    } else {
+    } else if (hasScrollable) {
       this.filters.nativeElement.classList.remove('hidden')
     }
   }

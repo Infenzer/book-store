@@ -1,9 +1,14 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { AuthModalService } from 'src/app/services/auth-modal.service';
+import {switchMap, takeUntil} from 'rxjs/operators';
+import {AuthRes, AuthService} from 'src/app/services/auth.service';
 import {MatDialogRef} from "@angular/material/dialog";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Store} from '@ngrx/store';
+import {State} from '../../../store';
+import {setClient} from '../../../store/actions/client.action';
+import {BookBackendService} from '../../services/book-backend.service';
+import {addFavoriteBookList} from '../../../store/actions/favorite.actions';
 
 @Component({
   selector: 'app-auth-modal',
@@ -21,7 +26,11 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   errorMessageActive = true
   errorMessage: string
 
-  constructor(private authModalService: AuthModalService, private modalRef: MatDialogRef<AuthModalComponent>) { }
+  constructor(private authService: AuthService,
+              private bookBackendService: BookBackendService,
+              private modalRef: MatDialogRef<AuthModalComponent>,
+              private store: Store<State>
+  ) { }
 
   ngOnInit(): void {
   }
@@ -36,12 +45,21 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.stopPropagation()
 
     if (this.login && this.password) {
-      this.authModalService.login(this.login, this.password)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          data => this.authModalService.setJwtToken(data.message),
-          (error: HttpErrorResponse) => this.showErrorMessage(error.error.message)
+      this.authService.login(this.login, this.password)
+        .pipe(
+          takeUntil(this.destroy$),
+          switchMap(data => {
+            this.setClient(data)
+            return this.bookBackendService.getAllFavoriteBook(data.id)
+          })
         )
+        .subscribe(favoriteBookList => {
+          this.store.dispatch(addFavoriteBookList({bookList: favoriteBookList}))
+        })
+        // .subscribe(
+        //   data => this.setClient(data),
+        //   (error: HttpErrorResponse) => this.showErrorMessage(error.error.message)
+        // )
     }
   }
 
@@ -57,7 +75,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.stopPropagation()
 
     if (this.login && this.password === this.repeatPassword) {
-      this.authModalService.register(this.login, this.email, this.password)
+      this.authService.register(this.login, this.email, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
@@ -105,5 +123,17 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     this.clearUserData();
     this.setErrorMessage(error)
     this.toggleErrorMessage(true)
+  }
+
+  setClient(authRes: AuthRes) {
+    console.log(authRes)
+    const client =  {
+      id: authRes.id,
+      username: authRes.username
+    }
+    this.store.dispatch(setClient({client}))
+    this.authService.setClient(client.id, client.username)
+    this.authService.setJwtToken(authRes.jwtToken)
+    this.modalRef.close()
   }
 }

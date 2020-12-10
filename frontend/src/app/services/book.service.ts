@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { IBookResponce, IBook } from '../../models/book.models'
-import { EBookFilter } from '../../models/book.models'
+import { IBookResponce, IBook } from '../../store/types/book'
+import { EBookFilter } from '../../store/types/book'
 import { IFilterState } from 'src/store/reducers/filter.reducers';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class BookService {
     const printType = this.filters.type ? 'printType=magazines&' : 'printType=books&'
     const index = `startIndex=${this.startIndex}&`
     let params = results + orderBy + filter + printType
-    
+
     if (startIndex) {
       params += index
     }
@@ -51,7 +51,7 @@ export class BookService {
   getNextBooks(maxResults = 16) {
     this.maxResults = maxResults
     this.startIndex += this.maxResults
-    
+
     return this.http.get<IBookResponce>(`${this.baseURL}?q=${this.searchValue}&` + this.getParams(true))
   }
 
