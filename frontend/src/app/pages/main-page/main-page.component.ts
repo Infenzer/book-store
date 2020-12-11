@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { IBook } from 'src/store/types/book';
 import {Store} from '@ngrx/store';
 import { State, selectBookList } from 'src/store';
-import { loadBookList, nextBookList } from 'src/store/actions/book.actions';
+import {bookDetailsSuccess, loadBookList, nextBookList} from 'src/store/actions/book.actions';
 import { addFavoriteBook, deleteFavoriteBook } from '../../../store/actions/favorite.actions'
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -31,7 +31,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
               private bookBackendService: BookBackendService,
               private activatedRoute: ActivatedRoute) {
     this.books$ = store.select(selectBookList)
-    this.loading$ = store.select(store => store.book.loading)
+    this.loading$ = store.select(store => store.book.mainLoading)
     this.favoriteList$ = store.select(store => store.favorite.favoriteBookList)
     this.client$ = store.select(state => state.client?.clientInfo)
   }
@@ -49,6 +49,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadBookList({searchValue}))
       } else {
         this.store.dispatch(loadBookList({}))
+        this.store.dispatch(bookDetailsSuccess({bookDetails: null}))
       }
     })
 

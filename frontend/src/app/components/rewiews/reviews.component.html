@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div class="review" *ngFor="let review of reviews">
+  <div class="review" *ngFor="let review of limitedReviews">
 
     <div class="trash" *ngIf="review.owner.id === clientState?.clientInfo?.id" (click)="deleteReview(review.id)">
       <i class="fas fa-trash"></i>
@@ -33,7 +33,9 @@
     </div>
   </div>
 
-  <div class="review-btn-wrapper load-more-btn">
+  <div class="empty-review" *ngIf="!reviews.length">Список пуст</div>
+
+  <div class="review-btn-wrapper load-more-btn" *ngIf="reviews.length && reviews.length !== limitedReviews.length" (click)="loadMoreReview()">
     <button>Загрузить ещё</button>
   </div>
 

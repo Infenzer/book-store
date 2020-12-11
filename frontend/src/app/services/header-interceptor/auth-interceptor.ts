@@ -8,9 +8,10 @@ export class AuthInterceptor implements HttpInterceptor{
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('jwtToken')
 
     if (!req.url.includes('https://www.googleapis.com/books')) {
+      const token = localStorage.getItem('jwtToken')
+
       req = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`)
       })
