@@ -23,6 +23,11 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     const client = this.authService.getClient()
+
+    if (!this.authService.hasJwtToken()) {
+      return
+    }
+
     this.authService.checkAuth().pipe(
       tap(res => console.log(res)),
       tap(result => this.logOut(result)),

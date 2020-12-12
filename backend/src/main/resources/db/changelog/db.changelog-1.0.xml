@@ -121,11 +121,11 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="8" author="Vitaly_V">
+    <changeSet id="8" author="Vitaliy_V">
         <insert tableName="clients">
-            <column name="login" value="vitaliy"/>
+            <column name="login" value="Vitaliy"/>
             <column name="email" value="vitaliy@mail.ru"/>
-            <column name="password" value="$2a$12$DN3BE8WdaFwyRoN00M9PIu1QE7SwIwx1Dg0AuCcqPeSkZuOHnuhd"/>
+            <column name="password" value="$2a$12$wMq00ff07.b5qqkR91JjzuowS1TuNe/5kuf4m/CdHrmVdbE2RhsFC"/>
         </insert>
     </changeSet>
 

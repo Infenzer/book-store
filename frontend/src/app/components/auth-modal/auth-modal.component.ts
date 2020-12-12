@@ -75,6 +75,7 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     e.stopPropagation()
 
     if (this.login && this.password === this.repeatPassword) {
+      console.log(this.login, this.email, this.password)
       this.authService.register(this.login, this.email, this.password)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
