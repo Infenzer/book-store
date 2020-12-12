@@ -5,13 +5,15 @@ import { Action } from "@ngrx/store";
 
 export interface State {
   bookList: IBook[]
-  loading: boolean
+  mainLoading: boolean
+  detailsLoading: boolean
   bookDetails: IBook | null
 }
 
 const initialState: State = {
   bookList: [],
-  loading: true,
+  mainLoading: true,
+  detailsLoading: true,
   bookDetails: null
 }
 
@@ -29,8 +31,8 @@ const _bookReducer = createReducer(
     }
   )),
 
-  on(BookActions.bookDetails, state => ({...state, loading: true})),
-  on(BookActions.bookDetailsSuccess, (state, {bookDetails}) => ({...state, bookDetails, loading: false})),
+  on(BookActions.bookDetails, state => ({...state, detailsLoading: true})),
+  on(BookActions.bookDetailsSuccess, (state, {bookDetails}) => ({...state, bookDetails, detailsLoading: false})),
 )
 
 export const bookReducer = (state: State | undefined, action: Action) => {

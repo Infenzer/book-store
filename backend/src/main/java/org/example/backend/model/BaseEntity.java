@@ -15,11 +15,11 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     @CreationTimestamp
     private Date create;
 
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     @UpdateTimestamp
     private Date update;
 

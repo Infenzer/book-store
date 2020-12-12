@@ -24,7 +24,7 @@ public class Client extends BaseEntity {
             fetch = FetchType.EAGER
     )
     @JoinTable(
-            name = "client_role",
+            name = "client_roles",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )

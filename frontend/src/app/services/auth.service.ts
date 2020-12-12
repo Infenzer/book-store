@@ -58,6 +58,10 @@ export class AuthService {
     localStorage.setItem('jwtToken', this.jwtToken)
   }
 
+  hasJwtToken() {
+    return !!localStorage.getItem('jwtToken')
+  }
+
   checkAuth() {
     const token = localStorage.getItem('jwtToken')
     return this.http.get<boolean>(`${this.baseUrl}/token/${token}`)

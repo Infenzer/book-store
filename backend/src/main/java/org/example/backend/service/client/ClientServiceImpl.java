@@ -27,17 +27,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void save(Client client) {
         List<Role> roles = new ArrayList<>();
-        Optional<Role> role = roleRepository.findById(1L);
 
-        // Временное заполнение таблиции ролей
-        if (role.isEmpty()) {
-            Role role1 = new Role();
-            role1.setName("USER");
-            roleRepository.save(role1);
-            roles.add(role1);
-        } else {
-            roles.add(role.get());
-        }
+        Optional<Role> role = roleRepository.findById(1L);
+        role.ifPresent(roles::add);
 
         client.setRoles(roles);
 

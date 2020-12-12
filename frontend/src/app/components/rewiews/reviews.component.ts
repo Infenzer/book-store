@@ -24,7 +24,9 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   bookDetails$: Observable<IBook>
   clientState$: Observable<Client.State>
 
-  reviews: ReviewApiDto[]
+  reviews: ReviewApiDto[] = []
+  limitedReviews: ReviewApiDto[] = []
+
   constructor(private dialog: MatDialog, private reviewService: ReviewService, private store: Store<State>) {
     this.bookDetails$ = store.select(selectBookDetails)
     this.clientState$ = store.select(state => state.client)
@@ -48,6 +50,7 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     ).subscribe(reviews => {
       console.log(reviews)
       this.reviews = reviews
+      this.limitedReviews = reviews.slice(0, 5)
     })
   }
 
@@ -56,13 +59,15 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   }
 
   openReviewModal() {
-    if (this.clientState) {
+    if (this.clientState.isAuth && this.checkRepeatReview(true)) {
       this.dialog.open(ReviewModalComponent).afterClosed().subscribe((createdReview: ReviewApiDto) => {
         if (createdReview) {
           this.reviews.push(createdReview)
         }
       })
-    } else {
+    }
+
+    if (!this.clientState.isAuth) {
       const messageData: MessageData = {
         message: 'Чтобы написать отзыв необходимо авторизироваться',
         color: 'red'
@@ -76,7 +81,9 @@ export class ReviewsComponent implements OnInit, OnDestroy {
     this.dialog.open(MessageModalComponent, {
       data
     }).afterClosed().subscribe(data => {
-      afterClosedFunc()
+      if (afterClosedFunc) {
+        afterClosedFunc()
+      }
     })
   }
 
@@ -105,6 +112,27 @@ export class ReviewsComponent implements OnInit, OnDestroy {
         error => errorFunc()
       )
     }
+  }
+
+  checkRepeatReview(chowModalError: boolean = false) {
+    if (this.reviews.find(review => review.owner?.id === this.clientState.clientInfo?.id)) {
+      if (chowModalError) {
+        const data: MessageData = {
+          message: 'Отзыв уже существует',
+          color: 'red',
+        }
+
+        this.openMessageModal(data)
+      }
+
+      return false
+    }
+
+    return true
+  }
+
+  loadMoreReview() {
+    this.limitedReviews = this.reviews.slice(0, this.limitedReviews.length + 5)
   }
 
 }

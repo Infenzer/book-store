@@ -1,8 +1,31 @@
 .reviews-component {
   margin-top: 1em;
+  padding-bottom: 2em;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  button {
+    padding: 1em;
+    border: 1px solid black;
+    background-color: white;
+    transition: 0.3s ease-in;
+    font-size: 14px;
+    outline: none;
+  }
+
+  button:hover {
+    padding: 1.3em;
+    color: white;
+    background-color: black;
+  }
+
+  .empty-review {
+    align-items: center;
+    text-align: center;
+    font-size: 1.5em;
+    margin: .5em 0;
+  }
 
   .reviews-head-wrapper {
     margin: 1em 0;
